@@ -1,0 +1,173 @@
+{
+  "dependencies": [
+    {
+      "name": "discord_rpc",
+      "type": "git",
+      "dir": null,
+      "ref": "2d83fa863ef0c1eace5f1cf67c3ac315d1a3a8a5",
+      "url": "https://github.com/FunkinCrew/linc_discord-rpc"
+    },
+    {
+      "name": "flixel",
+      "type": "git",
+      "dir": null,
+      "ref": "f2b090d6c608471e730b051c8ee22b8b378964b1",
+      "url": "https://github.com/FunkinCrew/flixel"
+    },
+    {
+      "name": "flixel-addons",
+      "type": "git",
+      "dir": null,
+      "ref": "7424db4e9164ff46f224a7c47de1b732d2542dd7",
+      "url": "https://github.com/FunkinCrew/flixel-addons"
+    },
+    {
+      "name": "flixel-text-input",
+      "type": "git",
+      "dir": null,
+      "ref": "951a0103a17bfa55eed86703ce50b4fb0d7590bc",
+      "url": "https://github.com/FunkinCrew/flixel-text-input"
+    },
+    {
+      "name": "flixel-ui",
+      "type": "git",
+      "dir": null,
+      "ref": "27f1ba626f80a6282fa8a187115e79a4a2133dc2",
+      "url": "https://github.com/HaxeFlixel/flixel-ui"
+    },
+    {
+      "name": "flxanimate",
+      "type": "git",
+      "dir": null,
+      "ref": "0654797e5eb7cd7de0c1b2dbaa1efe5a1e1d9412",
+      "url": "https://github.com/Dot-Stuff/flxanimate"
+    },
+    {
+      "name": "FlxPartialSound",
+      "type": "git",
+      "dir": null,
+      "ref": "a1eab7b9bf507b87200a3341719054fe427f3b15",
+      "url": "https://github.com/FunkinCrew/FlxPartialSound.git"
+    },
+    {
+      "name": "format",
+      "type": "haxelib",
+      "version": "3.5.0"
+    },
+    {
+      "name": "funkin.vis",
+      "type": "git",
+      "dir": null,
+      "ref": "22b1ce089dd924f15cdc4632397ef3504d464e90",
+      "url": "https://github.com/FunkinCrew/funkVis"
+    },
+    {
+      "name": "grig.audio",
+      "type": "git",
+      "dir": "src",
+      "ref": "57f5d47f2533fd0c3dcd025a86cb86c0dfa0b6d2",
+      "url": "https://gitlab.com/haxe-grig/grig.audio.git"
+    },
+    {
+      "name": "hamcrest",
+      "type": "haxelib",
+      "version": "3.0.0"
+    },
+    {
+      "name": "haxeui-core",
+      "type": "git",
+      "dir": null,
+      "ref": "22f7c5a8ffca90d4677cffd6e570f53761709fbc",
+      "url": "https://github.com/haxeui/haxeui-core"
+    },
+    {
+      "name": "haxeui-flixel",
+      "type": "git",
+      "dir": null,
+      "ref": "28bb710d0ae5d94b5108787593052165be43b980",
+      "url": "https://github.com/haxeui/haxeui-flixel"
+    },
+    {
+      "name": "hscript",
+      "type": "git",
+      "dir": null,
+      "ref": "12785398e2f07082f05034cb580682e5671442a2",
+      "url": "https://github.com/FunkinCrew/hscript"
+    },
+    {
+      "name": "hxp",
+      "type": "haxelib",
+      "version": "1.2.2"
+    },
+    {
+      "name": "json2object",
+      "type": "git",
+      "dir": null,
+      "ref": "a8c26f18463c98da32f744c214fe02273e1823fa",
+      "url": "https://github.com/FunkinCrew/json2object"
+    },
+    {
+      "name": "lime",
+      "type": "git",
+      "dir": null,
+      "ref": "872ff6db2f2d27c0243d4ff76802121ded550dd7",
+      "url": "https://github.com/FunkinCrew/lime"
+    },
+    {
+      "name": "mconsole",
+      "type": "git",
+      "dir": null,
+      "ref": "06c0499ed8f80628a0e6e55ffa32c3cbd688a838",
+      "url": "https://github.com/massive-oss/mconsole"
+    },
+    {
+      "name": "openfl",
+      "type": "git",
+      "dir": null,
+      "ref": "8306425c497766739510ab29e876059c96f77bd2",
+      "url": "https://github.com/FunkinCrew/openfl"
+    },
+    {
+      "name": "polymod",
+      "type": "git",
+      "dir": null,
+      "ref": "0fbdf27fe124549730accd540cec8a183f8652c0",
+      "url": "https://github.com/larsiusprime/polymod"
+    },
+    {
+      "name": "jsonpatch",
+      "type": "git",
+      "dir": null,
+      "ref": "f9b83215acd586dc28754b4ae7f69d4c06c3b4d3",
+      "url": "https://github.com/EliteMasterEric/jsonpatch"
+    },
+    {
+      "name": "jsonpath",
+      "type": "git",
+      "dir": null,
+      "ref": "7a24193717b36393458c15c0435bb7c4470ecdda",
+      "url": "https://github.com/EliteMasterEric/jsonpath"
+    },
+    {
+      "name": "thx.core",
+      "type": "git",
+      "dir": null,
+      "ref": "22605ff44f01971d599641790d6bae4869f7d9f4",
+      "url": "https://github.com/FunkinCrew/thx.core"
+    },
+    {
+      "name": "thx.semver",
+      "type": "git",
+      "dir": null,
+      "ref": "cf8d213589a2c7ce4a59b0fdba9e8ff36bc029fa",
+      "url": "https://github.com/FunkinCrew/thx.semver"
+    },
+    {
+      "name": "hxCodec",
+      "type": "git",
+      "dir": null,
+      "ref": "61b98a7a353b7f529a8fec84ed9afc919a2dffdd",
+      "url": "https://github.com/FunkinCrew/hxCodec"
+    }
+  ]
+}

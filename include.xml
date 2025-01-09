@@ -1,0 +1,39 @@
+<project xmlns="http://lime.software/project/1.0.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://lime.software/project/1.0.2 http://lime.software/xsd/project-1.0.2.xsd">
+
+    <assets path="assets/exclude" />
+
+    <haxelib name="lime" /> <!-- Game engine backend -->
+	<haxelib name="openfl" /> <!-- Game engine backend -->
+	<haxelib name="flixel" /> <!-- Game engine -->
+
+	<haxelib name="flixel-addons" /> <!-- Additional utilities for Flixel -->
+	<haxelib name="hscript" /> <!-- Scripting -->
+	<haxelib name="flixel-ui" /> <!-- UI framework (DEPRECATED) -->
+	<haxelib name="haxeui-core" /> <!-- UI framework -->
+	<haxelib name="haxeui-flixel" /> <!-- Integrate HaxeUI with Flixel -->
+	<haxelib name="flixel-text-input" /> <!-- Improved text field rendering for HaxeUI -->
+	<haxelib name="polymod" /> <!-- Modding framework -->
+	<haxelib name="flxanimate" /> <!-- Texture atlas rendering -->
+	<haxelib name="funkin.vis"/>
+	<haxelib name="grig.audio" />
+	<haxelib name="hxCodec" />
+
+    <!-- This macro allows addition of new functionality to existing Flixel. -->
+	<haxeflag name="--macro" value="addMetadata('@:build(funkin.util.macro.FlxMacro.buildFlxBasic())', 'flixel.FlxBasic')" />
+	<!-- Ensure all UI components are available at runtime. -->
+	<haxeflag name="--macro" value="include('haxe.ui.backend.flixel.components')" />
+	<haxeflag name="--macro" value="include('haxe.ui.containers.dialogs')" />
+	<haxeflag name="--macro" value="include('haxe.ui.containers.menus')" />
+	<haxeflag name="--macro" value="include('haxe.ui.containers.properties')" />
+	<haxeflag name="--macro" value="include('haxe.ui.core')" />
+	<haxeflag name="--macro" value="include('haxe.ui.components')" />
+	<haxeflag name="--macro" value="include('haxe.ui.containers')" />
+
+    <!-- I don't remember what this is for. -->
+	<haxedef name="haxeui_no_mouse_reset" />
+	<!-- Clicking outside a dialog should deselect the current focused component. -->
+	<haxedef name="haxeui_focus_out_on_click" />
+	<!-- Required to use haxe.ui.backend.flixel.UIState with build macros. -->
+	<haxedef name="haxeui_dont_impose_base_class" />
+</project>
