@@ -9,7 +9,6 @@
 
 	<haxelib name="flixel-addons" /> <!-- Additional utilities for Flixel -->
 	<haxelib name="hscript" /> <!-- Scripting -->
-	<haxelib name="flixel-ui" /> <!-- UI framework (DEPRECATED) -->
 	<haxelib name="haxeui-core" /> <!-- UI framework -->
 	<haxelib name="haxeui-flixel" /> <!-- Integrate HaxeUI with Flixel -->
 	<haxelib name="flixel-text-input" /> <!-- Improved text field rendering for HaxeUI -->
