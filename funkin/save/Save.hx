@@ -1,25 +1,27 @@
 package funkin.save;
 
 import flixel.util.FlxSave;
-import funkin.util.FileUtil;
 import funkin.input.Controls.Device;
 import funkin.play.scoring.Scoring;
 import funkin.play.scoring.Scoring.ScoringRank;
 import funkin.save.migrator.RawSaveData_v1_0_0;
 import funkin.save.migrator.SaveDataMigrator;
-import funkin.save.migrator.SaveDataMigrator;
 import funkin.ui.debug.charting.ChartEditorState.ChartEditorLiveInputStyle;
 import funkin.ui.debug.charting.ChartEditorState.ChartEditorTheme;
 import funkin.ui.debug.stageeditor.StageEditorState.StageEditorTheme;
+import funkin.util.FileUtil;
 import funkin.util.SerializerUtil;
 import thx.semver.Version;
-import thx.semver.Version;
+#if FEATURE_NEWGROUNDS
+import funkin.api.newgrounds.Medals;
+import funkin.api.newgrounds.Leaderboards;
+#end
 
 @:nullSafety
 class Save
 {
-  public static var SAVE_DATA_VERSION:thx.semver.Version = "2.0.4";
-  public static var SAVE_DATA_VERSION_RULE:thx.semver.VersionRule = "2.0.x";
+  public static var SAVE_DATA_VERSION:thx.semver.Version = "2.1.0";
+  public static var SAVE_DATA_VERSION_RULE:thx.semver.VersionRule = ">=2.1.0 <2.2.0";
 
   // We load this version's saves from a new save path, to maintain SOME level of backwards compatibility.
   public static var SAVE_PATH:String = 'FunkinCrew';
@@ -27,6 +29,12 @@ class Save
 
   public static var SAVE_PATH_LEGACY:String = 'ninjamuffin99';
   public static var SAVE_NAME_LEGACY:String = 'funkin';
+
+  /**
+   * We always use this save slot.
+   * Alter this if you want to use a different save slot.
+   */
+  public static var BASE_SAVE_SLOT:Int = 1;
 
   public static var instance(get, never):Save;
   public static var _instance:Null<Save> = null;
@@ -47,7 +55,12 @@ class Save
     trace("[SAVE] Loading save...");
 
     // Bind save data.
-    return loadFromSlot(1);
+    return loadFromSlot(BASE_SAVE_SLOT);
+  }
+
+  public static function clearData():Void
+  {
+    _instance = clearSlot(BASE_SAVE_SLOT);
   }
 
   /**
@@ -99,9 +112,20 @@ class Save
           zoomCamera: true,
           debugDisplay: false,
           autoPause: true,
+          strumlineBackgroundOpacity: 0,
+          autoFullscreen: false,
           inputOffset: 0,
           audioVisualOffset: 0,
           unlockedFramerate: false,
+
+          screenshot:
+            {
+              shouldHideMouse: true,
+              fancyPreview: true,
+              previewOnSave: true,
+              saveFormat: 'PNG',
+              jpegQuality: 80,
+            },
 
           controls:
             {
@@ -625,7 +649,7 @@ class Save
         else
         {
           // Level has score data, but the score is 0.
-          return false;
+          continue;
         }
       }
     }
@@ -643,7 +667,6 @@ class Save
   public function getSongScore(songId:String, difficultyId:String = 'normal', ?variation:String):Null<SaveScoreData>
   {
     var song = data.scores.songs.get(songId);
-    trace('Getting song score for $songId $difficultyId $variation');
     if (song == null)
     {
       trace('Could not find song data for $songId $difficultyId $variation');
@@ -706,6 +729,11 @@ class Save
     {
       // Directly set the highscore.
       setSongScore(songId, difficultyId, newScoreData);
+
+      #if FEATURE_NEWGROUNDS
+      Leaderboards.submitSongScore(songId, difficultyId, newScoreData.score);
+      #end
+
       return;
     }
 
@@ -820,7 +848,7 @@ class Save
         else
         {
           // Level has score data, but the score is 0.
-          return false;
+          continue;
         }
       }
     }
@@ -956,44 +984,90 @@ class Save
   }
 
   /**
-   * If you set slot to `2`, it will load an independe
+   * If you set slot to `2`, it will load an independent save file from slot 2.
    * @param slot
    */
   public static function loadFromSlot(slot:Int):Save
   {
-    trace("[SAVE] Loading save from slot " + slot + "...");
-
-    // Prevent crashes if the save data is corrupted.
-    SerializerUtil.initSerializer();
+    trace('[SAVE] Loading save from slot $slot...');
 
     FlxG.save.bind('$SAVE_NAME${slot}', SAVE_PATH);
 
-    if (FlxG.save.isEmpty())
+    switch (FlxG.save.status)
     {
-      trace('[SAVE] Save data is empty, checking for legacy save data...');
-      var legacySaveData = fetchLegacySaveData();
-      if (legacySaveData != null)
-      {
-        trace('[SAVE] Found legacy save data, converting...');
-        var gameSave = SaveDataMigrator.migrateFromLegacy(legacySaveData);
+      case EMPTY:
+        trace('[SAVE] Save data in slot ${slot} is empty, checking for legacy save data...');
+        var legacySaveData = fetchLegacySaveData();
+        if (legacySaveData != null)
+        {
+          trace('[SAVE] Found legacy save data, converting...');
+          var gameSave = SaveDataMigrator.migrateFromLegacy(legacySaveData);
+          FlxG.save.mergeData(gameSave.data, true);
+          return gameSave;
+        }
+        else
+        {
+          trace('[SAVE] No legacy save data found.');
+          var gameSave = new Save();
+          FlxG.save.mergeData(gameSave.data, true);
+          return gameSave;
+        }
+      case ERROR(_): // DEPRECATED: Unused
+        return handleSaveDataError(slot);
+      case SAVE_ERROR(_):
+        return handleSaveDataError(slot);
+      case LOAD_ERROR(_):
+        return handleSaveDataError(slot);
+      case BOUND(_, _):
+        trace('[SAVE] Loaded existing save data in slot ${slot}.');
+        var gameSave = SaveDataMigrator.migrate(FlxG.save.data);
         FlxG.save.mergeData(gameSave.data, true);
+
         return gameSave;
-      }
-      else
-      {
-        trace('[SAVE] No legacy save data found.');
-        var gameSave = new Save();
-        FlxG.save.mergeData(gameSave.data, true);
-        return gameSave;
-      }
+    }
+  }
+
+  public static function clearSlot(slot:Int):Save
+  {
+    FlxG.save.bind('$SAVE_NAME${slot}', SAVE_PATH);
+
+    if (FlxG.save.status != EMPTY)
+    {
+      // Archive the save data just in case.
+      // Not reliable but better than nothing.
+      var backupSlot:Int = Save.archiveBadSaveData(FlxG.save.data);
+
+      FlxG.save.erase();
+
+      return new Save();
     }
     else
     {
-      trace('[SAVE] Found existing save data.');
-      var gameSave = SaveDataMigrator.migrate(FlxG.save.data);
-      FlxG.save.mergeData(gameSave.data, true);
+      return new Save();
+    }
+  }
 
-      return gameSave;
+  /**
+   * Call this when there is an error loading the save data in slot X.
+   */
+  public static function handleSaveDataError(slot:Int):Save
+  {
+    var msg = 'There was an error loading your save data in slot ${slot}.';
+    msg += '\nPlease report this issue to the developers.';
+    lime.app.Application.current.window.alert(msg, "Save Data Failure");
+
+    // Don't touch that slot anymore.
+    // Instead, load the next available slot.
+
+    var nextSlot = slot + 1;
+
+    if (nextSlot < 1000)
+    {
+      return loadFromSlot(nextSlot);
+    }
+    else
+    {
+      throw "End of save data slots. Can't load any more.";
     }
   }
 
@@ -1058,7 +1132,19 @@ class Save
   {
     var targetSaveData = new FlxSave();
     targetSaveData.bind('$SAVE_NAME${slot}', SAVE_PATH);
-    return !targetSaveData.isEmpty();
+    switch (targetSaveData.status)
+    {
+      case EMPTY:
+        return false;
+      case ERROR(_): // DEPRECATED: Unused
+        return false;
+      case LOAD_ERROR(_):
+        return false;
+      case SAVE_ERROR(_):
+        return false;
+      case BOUND(_, _):
+        return true;
+    }
   }
 
   /**
@@ -1312,6 +1398,19 @@ typedef SaveDataOptions =
   public var autoPause:Bool;
 
   /**
+   * If >0, the game will display a semi-opaque background under the notes.
+   * `0` for no background, `100` for solid black if you're freaky like that
+   * @default `0`
+   */
+  public var strumlineBackgroundOpacity:Int;
+
+  /**
+   * If enabled, the game will automatically launch in fullscreen on startup.
+   * @default `true`
+   */
+  public var autoFullscreen:Bool;
+
+  /**
    * Offset the user's inputs by this many ms.
    * @default `0`
    */
@@ -1328,6 +1427,23 @@ typedef SaveDataOptions =
    * @default `false`
    */
   public var unlockedFramerate:Bool;
+
+  /**
+   * Screenshot options
+   * @param shouldHideMouse Should the mouse be hidden when taking a screenshot? Default: `true`
+   * @param fancyPreview Show a fancy preview? Default: `true`
+   * @param previewOnSave Only show the fancy preview after a screenshot is saved? Default: `true`
+   * @param saveFormat The save format of the screenshot, PNG or JPEG. Default: `PNG`
+   * @param jpegQuality The JPEG Quality, if we're saving to the format. Default: `80`
+   */
+  public var screenshot:
+    {
+      var shouldHideMouse:Bool;
+      var fancyPreview:Bool;
+      var previewOnSave:Bool;
+      var saveFormat:String;
+      var jpegQuality:Int;
+    };
 
   public var controls:
     {

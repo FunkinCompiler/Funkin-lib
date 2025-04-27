@@ -109,6 +109,10 @@ class Module implements IPlayStateScriptedClass implements IStateChangingScripte
 
   public function onStateChangeEnd(event:StateChangeScriptEvent) {}
 
+  public function onFocusGained(event:FocusScriptEvent) {}
+
+  public function onFocusLost(event:FocusScriptEvent) {}
+
   public function onSubStateOpenBegin(event:SubStateScriptEvent) {}
 
   public function onSubStateOpenEnd(event:SubStateScriptEvent) {}
@@ -117,28 +121,5 @@ class Module implements IPlayStateScriptedClass implements IStateChangingScripte
 
   public function onSubStateCloseEnd(event:SubStateScriptEvent) {}
 
-  public function onSongRetry(event:ScriptEvent) {}
-
-  /**
-   * Polymod function: Calls a requested function from this scripted class using given arguments
-   *
-   * You must enable `mockPolymodCalls` to use this function
-   * @param funcName Name of the target function
-   * @param args Arguments for that function
-   */
-  public function polymodExecFunc(funcName:String, args:Array<Dynamic> = null):Dynamic
-  {
-    //* mock call. Once build it should be replaced with
-    //* 'scriptCall'
-    return null;
-  }
-  /**
-   * Polymod function: Calls a requested function from this scripted class using given arguments
-   *
-   * @param funcName Name of the target function
-   * @param args Arguments for that function
-   */
-  public function scriptCall(funcName:String, args:Array<Dynamic> = null):Dynamic{
-    return null;
-  }
+  public function onSongRetry(event:SongRetryEvent) {}
 }

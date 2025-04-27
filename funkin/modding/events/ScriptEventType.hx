@@ -224,6 +224,20 @@ enum abstract ScriptEventType(String) from String to String
   public var SUBSTATE_CLOSE_END = 'SUBSTATE_CLOSE_END';
 
   /**
+   * Called when the game regains focus.
+   *
+   * This event is not cancelable.
+   */
+  public var FOCUS_GAINED = 'FOCUS_GAINED';
+
+  /**
+   * Called when the game loses focus.
+   *
+   * This event is not cancelable.
+   */
+  public var FOCUS_LOST = 'FOCUS_LOST';
+
+  /**
    * Called when the game starts a conversation.
    *
    * This event is not cancelable.

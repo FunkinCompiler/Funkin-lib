@@ -56,14 +56,20 @@ class Constants
   #end
 
   /**
+   * Whether or not the game is a debug build.
+   */
+  public static var DEBUG_BUILD:Bool = #if FEATURE_DEBUG_FUNCTIONS true #else false #end;
+
+  /**
    * URL DATA
    */
   // ==============================
 
   /**
    * Link to buy merch for the game.
+   * This is usually fetched from the Newgrounds API but we use this as a fallback.
    */
-  public static var URL_MERCH:String = 'https://www.makeship.com/shop/creator/friday-night-funkin';
+  public static var URL_MERCH_FALLBACK:String = 'https://needlejuicerecords.com/en-ca/pages/friday-night-funkin';
 
   /**
    * Preloader sitelock.
@@ -98,19 +104,19 @@ class Constants
   /**
    * The current Git branch.
    */
-  public static var GIT_BRANCH:String = "funkin.util.macro.GitCommit.getGitBranch()";
+  public static var GIT_BRANCH:String = funkin.util.macro.GitCommit.getGitBranch();
 
   /**
    * The current Git commit hash.
    */
-  public static var GIT_HASH:String = "funkin.util.macro.GitCommit.getGitCommitHash()";
+  public static var GIT_HASH:String = funkin.util.macro.GitCommit.getGitCommitHash();
 
-  public static var GIT_HAS_LOCAL_CHANGES:Bool = false;
+  public static var GIT_HAS_LOCAL_CHANGES:Bool = funkin.util.macro.GitCommit.getGitHasLocalChanges();
 
   /**
    * The current library versions, as provided by hmm.
    */
-  public static var LIBRARY_VERSIONS:Array<String> = [];
+  public static var LIBRARY_VERSIONS:Array<String> = funkin.util.macro.HaxelibVersions.getLibraryVersions();
 
   /**
    * COLORS
@@ -230,7 +236,7 @@ class Constants
   /**
    * Standardized variations for charts
    */
-  public static var DEFAULT_VARIATION_LIST:Array<String> = ['default', 'erect', 'pico'];
+  public static var DEFAULT_VARIATION_LIST:Array<String> = ['default', 'erect', 'pico', 'bf'];
 
   /**
    * The default intensity multiplier for camera bops.

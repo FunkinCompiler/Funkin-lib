@@ -3,19 +3,19 @@ package funkin.ui.options;
 import funkin.util.InputUtil;
 import flixel.FlxCamera;
 import flixel.FlxObject;
-import flixel.FlxSprite;
 import funkin.graphics.FunkinCamera;
-import flixel.group.FlxGroup;
-import flixel.input.actions.FlxActionInput;
+import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.keyboard.FlxKey;
 import funkin.graphics.FunkinSprite;
-import funkin.input.Controls;
+import funkin.input.Controls.Device;
+import funkin.input.Controls.Control;
 import funkin.ui.AtlasText;
-import funkin.ui.MenuList;
+import funkin.ui.MenuList.MenuTypedList;
 import funkin.ui.TextMenuList;
+import funkin.ui.Page;
 
-class ControlsMenu extends funkin.ui.options.OptionsState.Page
+class ControlsMenu extends Page<OptionsState.OptionsMenuPageName>
 {
   public static inline final COLUMNS = 2;
   public static var controlList = Control.createAll();
@@ -49,6 +49,10 @@ class ControlsMenu extends funkin.ui.options.OptionsState.Page
 
   public var currentDevice:Device = Keys;
   public var deviceListSelected:Bool = false;
+
+  public static var CONTROL_BASE_X = 50;
+  public static var CONTROL_MARGIN_X = 700;
+  public static var CONTROL_SPACING_X = 300;
 
   public function new()
   {
@@ -142,10 +146,10 @@ class ControlsMenu extends funkin.ui.options.OptionsState.Page
       if (currentHeader != null && name.indexOf(currentHeader) == 0) name = name.substr(currentHeader.length);
 
       var formatName = name.replace('_', ' ');
-      var label = labels.add(new AtlasText(100, y, formatName, AtlasFont.BOLD));
+      var label = labels.add(new AtlasText(CONTROL_BASE_X, y, formatName, AtlasFont.BOLD));
       label.alpha = 0.6;
       for (i in 0...COLUMNS)
-        createItem(label.x + 550 + i * 400, y, control, i);
+        createItem(label.x + CONTROL_MARGIN_X + i * CONTROL_SPACING_X, y, control, i);
 
       y += spacer;
     }
@@ -209,7 +213,7 @@ class ControlsMenu extends funkin.ui.options.OptionsState.Page
     prompt.exists = true;
   }
 
-  public function goToDeviceList()
+  public function goToDeviceList():Void
   {
     controlGrid.selectedItem.idle();
     labels.members[Std.int(controlGrid.selectedIndex / COLUMNS)].alpha = 0.6;
@@ -220,7 +224,7 @@ class ControlsMenu extends funkin.ui.options.OptionsState.Page
     deviceListSelected = true;
   }
 
-  public function selectDevice(device:Device)
+  public function selectDevice(device:Device):Void
   {
     currentDevice = device;
 

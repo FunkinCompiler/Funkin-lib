@@ -2,7 +2,6 @@ package funkin.data.story.level;
 
 import funkin.util.SortUtil;
 import funkin.ui.story.Level;
-import funkin.data.story.level.LevelData;
 import funkin.ui.story.ScriptedLevel;
 
 class LevelRegistry extends BaseRegistry<Level, LevelData>
@@ -14,7 +13,7 @@ class LevelRegistry extends BaseRegistry<Level, LevelData>
    */
   public static var LEVEL_DATA_VERSION:thx.semver.Version = "1.0.1";
 
-  public static var LEVEL_DATA_VERSION_RULE:thx.semver.VersionRule = "1.0.x";
+  public static var LEVEL_DATA_VERSION_RULE:thx.semver.VersionRule = ">=1.0.0 <1.1.0";
 
   public static var instance(get, never):LevelRegistry;
   public static var _instance:Null<LevelRegistry> = null;
