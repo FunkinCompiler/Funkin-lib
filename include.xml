@@ -17,6 +17,7 @@
 	<haxelib name="funkin.vis"/>
 	<haxelib name="grig.audio" />
 	<haxelib name="hxvlc" />
+	<haxelib name="newgrounds" />
 
     <!-- This macro allows addition of new functionality to existing Flixel. -->
 	<haxeflag name="--macro" value="addMetadata('@:build(funkin.util.macro.FlxMacro.buildFlxBasic())', 'flixel.FlxBasic')" />
