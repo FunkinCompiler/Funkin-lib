@@ -31,6 +31,7 @@
 
     <!-- I don't remember what this is for. -->
 	<haxedef name="haxeui_no_mouse_reset" />
+	<define name="FEATURE_NEWGROUNDS" />
 	<!-- Clicking outside a dialog should deselect the current focused component. -->
 	<haxedef name="haxeui_focus_out_on_click" />
 	<!-- Required to use haxe.ui.backend.flixel.UIState with build macros. -->
