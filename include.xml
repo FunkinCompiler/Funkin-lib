@@ -16,7 +16,7 @@
 	<haxelib name="flxanimate" /> <!-- Texture atlas rendering -->
 	<haxelib name="funkin.vis"/>
 	<haxelib name="grig.audio" />
-	<haxelib name="hxCodec" />
+	<haxelib name="hxvlc" />
 
     <!-- This macro allows addition of new functionality to existing Flixel. -->
 	<haxeflag name="--macro" value="addMetadata('@:build(funkin.util.macro.FlxMacro.buildFlxBasic())', 'flixel.FlxBasic')" />
