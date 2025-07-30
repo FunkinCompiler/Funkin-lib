@@ -35,7 +35,7 @@ class PreciseInputManager extends FlxKeyManager<FlxKey, PreciseInputList>
     return instance ?? (instance = new PreciseInputManager());
   }
 
-  public static var DIRECTIONS:Array<NoteDirection> = [NoteDirection.LEFT, NoteDirection.DOWN, NoteDirection.UP, NoteDirection.RIGHT];
+  static final DIRECTIONS:Array<NoteDirection> = [NoteDirection.LEFT, NoteDirection.DOWN, NoteDirection.UP, NoteDirection.RIGHT];
 
   public var onInputPressed:FlxTypedSignal<PreciseInputEvent->Void>;
   public var onInputReleased:FlxTypedSignal<PreciseInputEvent->Void>;
@@ -136,7 +136,7 @@ class PreciseInputManager extends FlxKeyManager<FlxKey, PreciseInputList>
   /**
    * Convert from int to Int64.
    */
-  public static var NS_PER_MS:Int64 = Constants.NS_PER_MS;
+  static final NS_PER_MS:Int64 = Constants.NS_PER_MS;
 
   /**
    * Returns a precise timestamp, measured in nanoseconds.
@@ -294,7 +294,7 @@ class PreciseInputManager extends FlxKeyManager<FlxKey, PreciseInputList>
     // TODO: Remove this line with SDL3 when timestamps change meaning.
     // This is because SDL3's timestamps are measured in nanoseconds, not milliseconds.
     timestamp *= Constants.NS_PER_MS; // 18126000000 38367000000
-    timestamp -= Conductor.instance.inputOffset * Constants.NS_PER_MS;
+    // timestamp -= globalOffset * Constants.NS_PER_MS;
     // trace(timestamp);
     updateKeyStates(key, true);
 

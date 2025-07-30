@@ -13,6 +13,7 @@ import funkin.util.VersionUtil;
 import haxe.Json;
 import flixel.graphics.frames.FlxFrame;
 
+@:nullSafety
 class CharacterDataParser
 {
   /**
@@ -22,17 +23,17 @@ class CharacterDataParser
    *
    * - Version 1.0.1 adds `death.cameraOffsets`
    */
-  public static var CHARACTER_DATA_VERSION:String = '1.0.1';
+  public static final CHARACTER_DATA_VERSION:String = '1.0.1';
 
   /**
    * The current version rule check for the stage data format.
    */
-  public static var CHARACTER_DATA_VERSION_RULE:String = '1.0.x';
+  public static final CHARACTER_DATA_VERSION_RULE:String = '1.0.x';
 
-  public static var characterCache:Map<String, CharacterData> = new Map<String, CharacterData>();
-  public static var characterScriptedClass:Map<String, String> = new Map<String, String>();
+  static final characterCache:Map<String, CharacterData> = new Map<String, CharacterData>();
+  static final characterScriptedClass:Map<String, String> = new Map<String, String>();
 
-  public static var DEFAULT_CHAR_ID:String = 'UNKNOWN';
+  static final DEFAULT_CHAR_ID:String = 'UNKNOWN';
 
   /**
    * Parses and preloads the game's stage data and scripts when the game starts.
@@ -57,7 +58,7 @@ class CharacterDataParser
     {
       try
       {
-        var charData:CharacterData = parseCharacterData(charId);
+        var charData:Null<CharacterData> = parseCharacterData(charId);
         if (charData != null)
         {
           trace('    Loaded character data: ${charId}');
@@ -203,14 +204,14 @@ class CharacterDataParser
       return null;
     }
 
-    var charData:CharacterData = characterCache.get(charId);
-    var charScriptClass:String = characterScriptedClass.get(charId);
+    var charData:Null<CharacterData> = characterCache.get(charId);
+    var charScriptClass:Null<String> = characterScriptedClass.get(charId);
 
-    var char:BaseCharacter;
+    var char:Null<BaseCharacter> = null;
 
     if (charScriptClass != null)
     {
-      switch (charData.renderType)
+      if (charData != null) switch (charData.renderType)
       {
         case CharacterRenderType.AnimateAtlas:
           char = ScriptedAnimateAtlasCharacter.init(charScriptClass, charId);
@@ -227,7 +228,7 @@ class CharacterDataParser
     }
     else
     {
-      switch (charData.renderType)
+      if (charData != null) switch (charData.renderType)
       {
         case CharacterRenderType.AnimateAtlas:
           char = new AnimateAtlasCharacter(charId);
@@ -283,7 +284,7 @@ class CharacterDataParser
   /**
    * Returns the idle frame of a character.
    */
-  public static function getCharPixelIconAsset(char:String):FlxFrame
+  public static function getCharPixelIconAsset(char:String):Null<FlxFrame>
   {
     var charPath:String = "freeplay/icons/";
 
@@ -296,7 +297,7 @@ class CharacterDataParser
         charPath += "monsterpixel";
       case "mom" | "mom-car":
         charPath += "mommypixel";
-      case "pico-blazin" | "pico-playable" | "pico-speaker":
+      case "pico-blazin" | "pico-playable" | "pico-speaker" | "pico-pixel" | "pico-holding-nene":
         charPath += "picopixel";
       case "gf-christmas" | "gf-car" | "gf-pixel" | "gf-tankmen" | "gf-dark":
         charPath += "gfpixel";
@@ -308,7 +309,7 @@ class CharacterDataParser
         charPath += "senpaipixel";
       case "spooky-dark":
         charPath += "spookypixel";
-      case "tankman-atlas":
+      case "tankman-atlas" | "tankman-bloody":
         charPath += "tankmanpixel";
       case "pico-christmas" | "pico-dark":
         charPath += "picopixel";
@@ -323,13 +324,13 @@ class CharacterDataParser
     }
 
     var isAnimated = Assets.exists(Paths.file('images/$charPath.xml'));
-    var frame:FlxFrame = null;
+    var frame:Null<FlxFrame> = null;
 
     if (isAnimated)
     {
       var frames = Paths.getSparrowAtlas(charPath);
 
-      var idleFrame:FlxFrame = frames.frames.find(function(frame:FlxFrame):Bool {
+      var idleFrame:Null<FlxFrame> = frames.frames.find(function(frame:FlxFrame):Bool {
         return frame.name.startsWith('idle');
       });
 
@@ -380,7 +381,7 @@ class CharacterDataParser
   {
     var rawJson:String = loadCharacterFile(charId);
 
-    var charData:CharacterData = migrateCharacterData(rawJson, charId);
+    var charData:Null<CharacterData> = migrateCharacterData(rawJson, charId);
 
     return validateCharacterData(charId, charData);
   }
@@ -422,21 +423,21 @@ class CharacterDataParser
    * Values that are too high will cause the character to hold their singing pose for too long after they're done.
    * @default `8 steps`
    */
-  public static var DEFAULT_SINGTIME:Float = 8.0;
+  public static final DEFAULT_SINGTIME:Float = 8.0;
 
-  public static var DEFAULT_DANCEEVERY:Float = 1.0;
-  public static var DEFAULT_FLIPX:Bool = false;
-  public static var DEFAULT_FLIPY:Bool = false;
-  public static var DEFAULT_FRAMERATE:Int = 24;
-  public static var DEFAULT_ISPIXEL:Bool = false;
-  public static var DEFAULT_LOOP:Bool = false;
-  public static var DEFAULT_NAME:String = 'Untitled Character';
-  public static var DEFAULT_OFFSETS:Array<Float> = [0, 0];
-  public static var DEFAULT_HEALTHICON_OFFSETS:Array<Int> = [0, 25];
-  public static var DEFAULT_RENDERTYPE:CharacterRenderType = CharacterRenderType.Sparrow;
-  public static var DEFAULT_SCALE:Float = 1;
-  public static var DEFAULT_SCROLL:Array<Float> = [0, 0];
-  public static var DEFAULT_STARTINGANIM:String = 'idle';
+  public static final DEFAULT_DANCEEVERY:Float = 1.0;
+  public static final DEFAULT_FLIPX:Bool = false;
+  public static final DEFAULT_FLIPY:Bool = false;
+  public static final DEFAULT_FRAMERATE:Int = 24;
+  public static final DEFAULT_ISPIXEL:Bool = false;
+  public static final DEFAULT_LOOP:Bool = false;
+  public static final DEFAULT_NAME:String = 'Untitled Character';
+  public static final DEFAULT_OFFSETS:Array<Float> = [0, 0];
+  public static final DEFAULT_HEALTHICON_OFFSETS:Array<Int> = [0, 25];
+  public static final DEFAULT_RENDERTYPE:CharacterRenderType = CharacterRenderType.Sparrow;
+  public static final DEFAULT_SCALE:Float = 1;
+  public static final DEFAULT_SCROLL:Array<Float> = [0, 0];
+  public static final DEFAULT_STARTINGANIM:String = 'idle';
 
   /**
    * Set unspecified parameters to their defaults.
@@ -445,7 +446,7 @@ class CharacterDataParser
    * @param input
    * @return The validated character data
    */
-  public static function validateCharacterData(id:String, input:CharacterData):Null<CharacterData>
+  public static function validateCharacterData(id:String, input:Null<CharacterData>):Null<CharacterData>
   {
     if (input == null)
     {

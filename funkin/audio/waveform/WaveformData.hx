@@ -3,7 +3,7 @@ package funkin.audio.waveform;
 @:nullSafety
 class WaveformData
 {
-  public static var DEFAULT_VERSION:Int = 2;
+  static final DEFAULT_VERSION:Int = 2;
 
   /**
    * The version of the waveform data format.
@@ -243,9 +243,10 @@ class WaveformDataChannel
   }
 
   /**
-   * Retrieve a given minimum point at an index.
+   * @param i Index
+   * @return minimum point at an index.
    */
-  public function minSample(i:Int)
+  public function minSample(i:Int):Int
   {
     var offset = (i * parent.channels + this.channelId) * 2;
     return inline parent.get(offset);

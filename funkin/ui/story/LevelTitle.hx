@@ -7,7 +7,7 @@ import funkin.util.MathUtil;
 
 class LevelTitle extends FlxSpriteGroup
 {
-  public static var LOCK_PAD:Int = 4;
+  static final LOCK_PAD:Int = 4;
 
   public final level:Level;
 
@@ -49,7 +49,7 @@ class LevelTitle extends FlxSpriteGroup
 
   public override function update(elapsed:Float):Void
   {
-    this.y = MathUtil.coolLerp(y, targetY, 0.17);
+    this.y = MathUtil.smoothLerpPrecision(y, targetY, elapsed, 0.451);
 
     if (isFlashing)
     {

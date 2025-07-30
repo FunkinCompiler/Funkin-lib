@@ -10,47 +10,36 @@ import funkin.play.song.ScriptedSong;
 import funkin.play.song.Song;
 import funkin.util.assets.DataAssets;
 import funkin.util.VersionUtil;
+import funkin.util.tools.ISingleton;
+import funkin.data.DefaultRegistryImpl;
 
 using funkin.data.song.migrator.SongDataMigrator;
 
 @:nullSafety
-class SongRegistry extends BaseRegistry<Song, SongMetadata>
+class SongRegistry extends BaseRegistry<Song, SongMetadata> implements ISingleton implements DefaultRegistryImpl
 {
   /**
    * The current version string for the stage data format.
    * Handle breaking changes by incrementing this value
    * and adding migration to the `migrateStageData()` function.
    */
-  public static var SONG_METADATA_VERSION:thx.semver.Version = "2.2.4";
+  public static final SONG_METADATA_VERSION:thx.semver.Version = "2.2.4";
 
-  public static var SONG_METADATA_VERSION_RULE:thx.semver.VersionRule = "2.2.x";
+  public static final SONG_METADATA_VERSION_RULE:thx.semver.VersionRule = "2.2.x";
 
-  public static var SONG_CHART_DATA_VERSION:thx.semver.Version = "2.0.0";
+  public static final SONG_CHART_DATA_VERSION:thx.semver.Version = "2.0.0";
 
-  public static var SONG_CHART_DATA_VERSION_RULE:thx.semver.VersionRule = "2.0.x";
+  public static final SONG_CHART_DATA_VERSION_RULE:thx.semver.VersionRule = "2.0.x";
 
-  public static var SONG_MUSIC_DATA_VERSION:thx.semver.Version = "2.0.0";
+  public static final SONG_MUSIC_DATA_VERSION:thx.semver.Version = "2.0.0";
 
-  public static var SONG_MUSIC_DATA_VERSION_RULE:thx.semver.VersionRule = "2.0.x";
+  public static final SONG_MUSIC_DATA_VERSION_RULE:thx.semver.VersionRule = "2.0.x";
 
   public static var DEFAULT_GENERATEDBY(get, never):String;
 
   public static function get_DEFAULT_GENERATEDBY():String
   {
     return '${Constants.TITLE} - ${Constants.VERSION}';
-  }
-
-  /**
-   * TODO: What if there was a Singleton macro which automatically created the property for us?
-   */
-  public static var instance(get, never):SongRegistry;
-
-  public static var _instance:Null<SongRegistry> = null;
-
-  public static function get_instance():SongRegistry
-  {
-    if (_instance == null) _instance = new SongRegistry();
-    return _instance;
   }
 
   public function new()
@@ -335,7 +324,7 @@ class SongRegistry extends BaseRegistry<Song, SongMetadata>
     }
     else
     {
-      throw '[${registryId}] Chart entry ${id}:${variation} does not support migration to version ${SONG_CHART_DATA_VERSION_RULE}.';
+      throw '[${registryId}] Chart entry ${id}:${variation} does not support migration to version ${SONG_MUSIC_DATA_VERSION_RULE}.';
     }
   }
 
@@ -348,7 +337,7 @@ class SongRegistry extends BaseRegistry<Song, SongMetadata>
     }
     else
     {
-      throw '[${registryId}] Chart entry "$fileName" does not support migration to version ${SONG_CHART_DATA_VERSION_RULE}.';
+      throw '[${registryId}] Chart entry "$fileName" does not support migration to version ${SONG_MUSIC_DATA_VERSION_RULE}.';
     }
   }
 
@@ -417,16 +406,6 @@ class SongRegistry extends BaseRegistry<Song, SongMetadata>
     {
       throw '[${registryId}] Chart entry "${fileName}" does not support migration to version ${SONG_CHART_DATA_VERSION_RULE}.';
     }
-  }
-
-  public function createScriptedEntry(clsName:String):Song
-  {
-    return ScriptedSong.init(clsName, "unknown");
-  }
-
-  public function getScriptedClassNames():Array<String>
-  {
-    return ScriptedSong.listScriptClasses();
   }
 
   public function loadEntryMetadataFile(id:String, ?variation:String):Null<JsonFile>
@@ -501,52 +480,6 @@ class SongRegistry extends BaseRegistry<Song, SongMetadata>
     chartData.variation = variation;
 
     return chartData;
-  }
-
-  /**
-   * A list of all the story weeks from the base game, in order.
-   * TODO: Should this be hardcoded?
-   */
-  public function listBaseGameSongIds():Array<String>
-  {
-    return [
-      "tutorial",
-      "bopeebo",
-      "fresh",
-      "dadbattle",
-      "spookeez",
-      "south",
-      "monster",
-      "pico",
-      "philly-nice",
-      "blammed",
-      "satin-panties",
-      "high",
-      "milf",
-      "cocoa",
-      "eggnog",
-      "winter-horrorland",
-      "senpai",
-      "roses",
-      "thorns",
-      "ugh",
-      "guns",
-      "stress",
-      "darnell",
-      "lit-up",
-      "2hot",
-      "blazin"
-    ];
-  }
-
-  /**
-   * A list of all installed story weeks that are not from the base game.
-   */
-  public function listModdedSongIds():Array<String>
-  {
-    return listEntryIds().filter(function(id:String):Bool {
-      return listBaseGameSongIds().indexOf(id) == -1;
-    });
   }
 
   /**

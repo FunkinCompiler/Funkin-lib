@@ -27,6 +27,11 @@ class StrumlineNote extends FunkinSprite
   }
 
   /**
+   * The Y Offset of the note.
+   */
+  public var yOffset:Float = 0.0;
+
+  /**
    * Set this flag to `true` to disable performance optimizations that cause
    * the Strumline note sprite to ignore `velocity` and `acceleration`.
    */
@@ -35,7 +40,7 @@ class StrumlineNote extends FunkinSprite
   /**
    * How long to continue the hold note animation after a note is pressed.
    */
-  public static var CONFIRM_HOLD_TIME:Float = 0.1;
+  static final CONFIRM_HOLD_TIME:Float = 0.1;
 
   /**
    * How long the hold note animation has been playing after a note is pressed.
@@ -52,8 +57,8 @@ class StrumlineNote extends FunkinSprite
 
     setup(noteStyle);
 
-    this.animation.callback = onAnimationFrame;
-    this.animation.finishCallback = onAnimationFinished;
+    this.animation.onFrameChange.add(onAnimationFrame);
+    this.animation.onFinish.add(onAnimationFinished);
 
     // Must be true for animations to play.
     this.active = true;
@@ -183,7 +188,7 @@ class StrumlineNote extends FunkinSprite
     return this.animation.finished;
   }
 
-  public static var DEFAULT_OFFSET:Int = 13;
+  static final DEFAULT_OFFSET:Int = 13;
 
   /**
    * Adjusts the position of the sprite's graphic relative to the hitbox.

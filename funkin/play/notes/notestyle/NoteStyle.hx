@@ -20,11 +20,6 @@ using funkin.data.animation.AnimationData.AnimationDataUtil;
 class NoteStyle implements IRegistryEntry<NoteStyleData>
 {
   /**
-   * The ID of the note style.
-   */
-  public final id:String;
-
-  /**
    * Note style data as parsed from the JSON file.
    */
   public final _data:NoteStyleData;
@@ -595,6 +590,7 @@ class NoteStyle implements IRegistryEntry<NoteStyleData>
   public function buildJudgementSpritePath(rating:String):Null<String>
   {
     var basePath:Null<String> = null;
+
     switch (rating)
     {
       case "sick":
@@ -608,13 +604,11 @@ class NoteStyle implements IRegistryEntry<NoteStyleData>
       default:
         basePath = null;
     }
-
     if (basePath == null) return fallback?.buildJudgementSpritePath(rating);
-
     var parts = basePath?.split(Constants.LIBRARY_SEPARATOR) ?? [];
+
     if (parts.length < 1) return null;
     if (parts.length == 1) return parts[0];
-
     return parts[1];
   }
 

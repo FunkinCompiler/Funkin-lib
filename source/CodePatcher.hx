@@ -7,6 +7,7 @@ using StringTools;
 // Patcher
 // !! make sure to put "polymodExecFunc" in Module.hx
 // !! THIS IS NOT AUTOMATIC
+//"haxe -main CodePatcher --interp  "
 class CodePatcher
 {
   static var blacklist:Array<String> = ["../funkin/ui/debug", "../funkin/play/notes/notekind/NoteKind.hx"];
@@ -60,15 +61,16 @@ class CodePatcher
 }",
     ~/^  var (.*):(.*)/gm => "  public var $1:$2",
     ~/^  static var (.*):(.*)/gm => "  public static var $1:$2",
-    ~/^  static final (.*):(.*)/gm => "  public static var $1:$2",
+ // ~/^  static final (.*):(.*)/gm => "  public static var $1:$2",
     ~/^  var (.*)/gm => "  public var $1",
     ~/^  static var (.*)/gm => "  public static var $1",
-    ~/^  static final (.*)/gm => "  public static var $1",
-    ~/^  public static final (.*):(.*)/gm => "  public static var $1:$2",
+ // ~/^  static final (.*)/gm => "  public static var $1",
+ // ~/^  public static final (.*):(.*)/gm => "  public static var $1:$2",
     ~/^  function (.*)\((.*)\)/gm => "  public function $1($2)",
     ~/^  private function (.*)\((.*)\):/gm => "  public function $1($2):",
     ~/^  static function (.*)\((.*)\):/gm => "  public static function $1($2):"
   ];
+  // Removed the patches for "final" values since polymod *may* start enforcing them
 
   public static function main()
   {

@@ -6,6 +6,9 @@ import funkin.audio.FunkinSound;
 import flixel.FlxSprite;
 import funkin.ui.mainmenu.MainMenuState;
 import flixel.group.FlxSpriteGroup;
+import funkin.util.TouchUtil;
+import funkin.ui.credits.CreditsData.CreditsDataRole;
+import funkin.ui.credits.CreditsData.CreditsDataMember;
 
 /**
  * The state used to display the credits scroll.
@@ -21,7 +24,7 @@ class CreditsState extends MusicBeatState
   /**
    * The padding on each side of the screen.
    */
-  public static var SCREEN_PAD = 24;
+  static final SCREEN_PAD = 24;
 
   /**
    * The width of the screen the credits should maximally fill up.
@@ -35,39 +38,39 @@ class CreditsState extends MusicBeatState
    * Choose something that will render Unicode properly.
    */
   #if windows
-  public static var CREDITS_FONT = 'Consolas';
+  static final CREDITS_FONT = 'Consolas';
   #elseif mac
-  public static var CREDITS_FONT = 'Menlo';
+  static final CREDITS_FONT = 'Menlo';
   #else
-  public static var CREDITS_FONT = "Courier New";
+  static final CREDITS_FONT = "Courier New";
   #end
 
   /**
    * The size of the font.
    */
-  public static var CREDITS_FONT_SIZE = 24;
+  static final CREDITS_FONT_SIZE = 24;
 
-  public static var CREDITS_HEADER_FONT_SIZE = 32;
+  static final CREDITS_HEADER_FONT_SIZE = 32;
 
   /**
    * The color of the text itself.
    */
-  public static var CREDITS_FONT_COLOR = FlxColor.WHITE;
+  static final CREDITS_FONT_COLOR = FlxColor.WHITE;
 
   /**
    * The color of the text's outline.
    */
-  public static var CREDITS_FONT_STROKE_COLOR = FlxColor.BLACK;
+  static final CREDITS_FONT_STROKE_COLOR = FlxColor.BLACK;
 
   /**
    * The speed the credits scroll at, in pixels per second.
    */
-  public static var CREDITS_SCROLL_BASE_SPEED = 100.0;
+  static final CREDITS_SCROLL_BASE_SPEED = 100.0;
 
   /**
    * The speed the credits scroll at while the button is held, in pixels per second.
    */
-  public static var CREDITS_SCROLL_FAST_SPEED = CREDITS_SCROLL_BASE_SPEED * 4.0;
+  static final CREDITS_SCROLL_FAST_SPEED = CREDITS_SCROLL_BASE_SPEED * 4.0;
 
   /**
    * The actual sprites and text used to display the credits.
@@ -75,6 +78,9 @@ class CreditsState extends MusicBeatState
   public var creditsGroup:FlxSpriteGroup;
 
   public var scrollPaused:Bool = false;
+
+  public var backersToBuild:Array<String>;
+  public var entriesToBuild:Array<CreditsEntry>;
 
   public function new()
   {
@@ -84,6 +90,28 @@ class CreditsState extends MusicBeatState
   public override function create():Void
   {
     super.create();
+
+    #if ios
+    var fix = new FlxText();
+    fix.font = CREDITS_FONT;
+    fix.draw();
+    #end
+
+    backersToBuild = CreditsDataHandler.fetchBackerEntries();
+
+    entriesToBuild = [];
+    for (entry in CreditsDataHandler.CREDITS_DATA.entries)
+    {
+      entriesToBuild.push(
+        {
+          data: entry,
+          lineIndexToBuild: 0,
+          backerIndexToBuild: 0,
+          hasBuiltHeader: (entry.header == null),
+          hasBuiltBody: (entry.body.length == 0),
+          hasBuiltBackers: (!entry.appendBackers || backersToBuild.length == 0)
+        });
+    }
 
     // Background
     var bg = new FlxSprite(Paths.image('menuDesat'));
@@ -101,10 +129,10 @@ class CreditsState extends MusicBeatState
     // TODO: Once we need to display Kickstarter backers,
     // make this use a recycled pool so we don't kill peformance.
     creditsGroup = new FlxSpriteGroup();
-    creditsGroup.x = SCREEN_PAD;
+    creditsGroup.x = Math.max(funkin.ui.FullScreenScaleMode.gameNotchSize.x, SCREEN_PAD);
     creditsGroup.y = STARTING_HEIGHT;
 
-    buildCreditsGroup();
+    // buildCreditsGroup();
 
     add(creditsGroup);
 
@@ -117,41 +145,50 @@ class CreditsState extends MusicBeatState
         loop: true
       });
     FlxG.sound.music.fadeIn(6, 0, 0.8);
+
+    #if mobile
+    addBackButton(FlxG.width - 230, FlxG.height - 200, FlxColor.WHITE, exit, 0.7);
+    #end
   }
 
-  public function buildCreditsGroup():Void
+  public var creditsLineY:Float = 0;
+
+  public function buildCreditsEntryLine(entry:CreditsEntry):Void
   {
-    var y:Float = 0;
-
-    for (entry in CreditsDataHandler.CREDITS_DATA.entries)
+    if (!entry.hasBuiltHeader)
     {
-      if (entry.header != null)
-      {
-        var header = buildCreditsLine(entry.header, y, true, CreditsSide.Left);
-        header.bold = true;
-        creditsGroup.add(header);
-        y += CREDITS_HEADER_FONT_SIZE + (header.textField.numLines * CREDITS_HEADER_FONT_SIZE);
-      }
+      var header:FlxText = buildCreditsLine(entry.data.header, creditsLineY, true, CreditsSide.Left);
+      creditsLineY += CREDITS_HEADER_FONT_SIZE + (header.textField.numLines * CREDITS_HEADER_FONT_SIZE);
+      entry.hasBuiltHeader = true;
+      return;
+    }
 
-      for (line in entry?.body ?? [])
-      {
-        var entry = buildCreditsLine(line.line, y, false, CreditsSide.Left);
-        creditsGroup.add(entry);
-        y += CREDITS_FONT_SIZE * entry.textField.numLines;
-      }
+    if (!entry.hasBuiltBody)
+    {
+      var lineData:CreditsDataMember = entry.data.body[entry.lineIndexToBuild];
+      var line:FlxText = buildCreditsLine(lineData.line, creditsLineY, false, CreditsSide.Left);
+      creditsLineY += CREDITS_FONT_SIZE * line.textField.numLines;
+      entry.lineIndexToBuild++;
 
-      if (entry.appendBackers)
+      if (entry.lineIndexToBuild >= entry.data.body.length)
       {
-        var backers = CreditsDataHandler.fetchBackerEntries();
-        for (backer in backers)
-        {
-          creditsGroup.add(buildCreditsLine(backer, y, false, CreditsSide.Left));
-          y += CREDITS_FONT_SIZE;
-        }
+        entry.hasBuiltBody = true;
       }
+      return;
+    }
 
-      // Padding between each role.
-      y += CREDITS_FONT_SIZE * 2.5;
+    if (!entry.hasBuiltBackers)
+    {
+      var backer:String = backersToBuild[entry.backerIndexToBuild];
+      creditsGroup.add(buildCreditsLine(backer, creditsLineY, false, CreditsSide.Left));
+      creditsLineY += CREDITS_FONT_SIZE;
+
+      entry.backerIndexToBuild++;
+      if (entry.backerIndexToBuild >= backersToBuild.length)
+      {
+        entry.hasBuiltBackers = true;
+      }
+      return;
     }
   }
 
@@ -164,20 +201,70 @@ class CreditsState extends MusicBeatState
     var width = (side == CreditsSide.Center) ? FULL_WIDTH : (FULL_WIDTH / 2);
     var size = header ? CREDITS_HEADER_FONT_SIZE : CREDITS_FONT_SIZE;
 
-    var creditsLine:FlxText = new FlxText(xPos, yPos, width, text);
+    // using a cast since creditsGroup is FlxSpriteGroup
+    // we could also do FlxTypedSpriteGroup<FlxText>
+    var creditsLine:FlxText = cast(creditsGroup.recycle(() -> new FlxText()), FlxText);
+    creditsLine.x = xPos + creditsGroup.x;
+    creditsLine.y = yPos + creditsGroup.y;
+    creditsLine.fieldWidth = width;
+    creditsLine.text = text;
+    creditsLine.bold = header;
     creditsLine.setFormat(CREDITS_FONT, size, CREDITS_FONT_COLOR, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, CREDITS_FONT_STROKE_COLOR, true);
 
     return creditsLine;
+  }
+
+  public function killOffScreenLines():Void
+  {
+    creditsGroup.forEachExists(function(creditsLine:FlxSprite) {
+      if (creditsLine.y + creditsLine.height <= 0)
+      {
+        creditsLine.kill();
+        trace("killed line");
+      }
+    });
+  }
+
+  public function buildNextLine():Void
+  {
+    // no more entriesToBuild
+    if (entriesToBuild.length == 0)
+    {
+      return;
+    }
+
+    // line is off-screen
+    if (creditsGroup.y + creditsLineY >= FlxG.height)
+    {
+      return;
+    }
+
+    var entry:CreditsEntry = entriesToBuild[0];
+    buildCreditsEntryLine(entry);
+
+    // check if everything has been built
+    if (!entry.hasBuiltHeader || !entry.hasBuiltBody || !entry.hasBuiltBackers)
+    {
+      return;
+    }
+
+    entriesToBuild.shift();
+
+    // offset that each entry has
+    creditsLineY += CREDITS_FONT_SIZE * 2.5;
   }
 
   public override function update(elapsed:Float):Void
   {
     super.update(elapsed);
 
+    killOffScreenLines();
+    buildNextLine();
+
     if (!scrollPaused)
     {
       // TODO: Replace with whatever the special note button is.
-      if (controls.ACCEPT || FlxG.keys.pressed.SPACE)
+      if (FlxG.keys.pressed.ENTER || FlxG.keys.pressed.SPACE #if mobile || TouchUtil.pressed && !TouchUtil.overlaps(backButton) #end)
       {
         // Move the whole group.
         creditsGroup.y -= CREDITS_SCROLL_FAST_SPEED * elapsed;
@@ -201,7 +288,7 @@ class CreditsState extends MusicBeatState
 
   public function hasEnded():Bool
   {
-    return creditsGroup.y < -creditsGroup.height;
+    return creditsGroup.getFirstExisting() == null && entriesToBuild.length == 0;
   }
 
   public function exit():Void
@@ -220,4 +307,14 @@ enum CreditsSide
   Left;
   Center;
   Right;
+}
+
+typedef CreditsEntry =
+{
+  public var data:CreditsDataRole;
+  public var lineIndexToBuild:Int;
+  public var backerIndexToBuild:Int;
+  public var hasBuiltHeader:Bool;
+  public var hasBuiltBody:Bool;
+  public var hasBuiltBackers:Bool;
 }

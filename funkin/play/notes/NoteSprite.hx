@@ -8,7 +8,7 @@ import funkin.graphics.shaders.HSVShader;
 
 class NoteSprite extends FunkinSprite
 {
-  public static var DIRECTION_COLORS:Array<String> = ['purple', 'blue', 'green', 'red'];
+  static final DIRECTION_COLORS:Array<String> = ['purple', 'blue', 'green', 'red'];
 
   public var holdNoteSprite:SustainTrail;
 
@@ -105,6 +105,11 @@ class NoteSprite extends FunkinSprite
   }
 
   /**
+   * The Y Offset of the note.
+   */
+  public var yOffset:Float = 0.0;
+
+  /**
    * Set this flag to true when hitting the note to avoid scoring it multiple times.
    */
   public var hasBeenHit:Bool = false;
@@ -148,6 +153,8 @@ class NoteSprite extends FunkinSprite
     this.direction = direction;
 
     this.hsvShader = new HSVShader();
+
+    this.alpha = 1;
 
     setupNoteGraphic(noteStyle);
   }

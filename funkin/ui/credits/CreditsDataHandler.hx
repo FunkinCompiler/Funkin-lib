@@ -7,12 +7,12 @@ using StringTools;
 @:nullSafety
 class CreditsDataHandler
 {
-  public static var BACKER_PUBLIC_URL:String = 'https://funkin.me/backers';
+  public static final BACKER_PUBLIC_URL:String = 'https://funkin.me/backers';
 
   #if HARDCODED_CREDITS
-  public static var CREDITS_DATA_PATH:String = "assets/exclude/data/credits.json";
+  static final CREDITS_DATA_PATH:String = "assets/exclude/data/credits.json";
   #else
-  public static var CREDITS_DATA_PATH:String = "assets/data/credits.json";
+  static final CREDITS_DATA_PATH:String = "assets/data/credits.json";
   #end
 
   public static function debugPrint(data:Null<CreditsData>):Void
@@ -76,7 +76,7 @@ class CreditsDataHandler
    * The data for the credits.
    * Hardcoded into game via a macro at compile time.
    */
-  public static var CREDITS_DATA:Null<CreditsData> = #if macro null #else CreditsDataMacro.loadCreditsData() #end;
+  public static final CREDITS_DATA:Null<CreditsData> = #if macro null #else CreditsDataMacro.loadCreditsData() #end;
   #else
 
   /**

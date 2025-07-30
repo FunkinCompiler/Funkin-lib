@@ -5,27 +5,23 @@ import funkin.data.IRegistryEntry;
 import flixel.group.FlxSpriteGroup;
 import flixel.graphics.frames.FlxFramesCollection;
 import funkin.graphics.FunkinSprite;
-import flixel.addons.text.FlxTypeText;
 import funkin.util.assets.FlxAnimationUtil;
 import funkin.modding.events.ScriptEvent;
 import funkin.audio.FunkinSound;
 import funkin.modding.IScriptedClass.IDialogueScriptedClass;
 import flixel.util.FlxColor;
+import funkin.ui.FullScreenScaleMode;
 import funkin.data.dialogue.dialoguebox.DialogueBoxData;
 import funkin.data.dialogue.dialoguebox.DialogueBoxRegistry;
 
 class DialogueBox extends FlxSpriteGroup implements IDialogueScriptedClass implements IRegistryEntry<DialogueBoxData>
 {
-  public final id:String;
-
   public var dialogueBoxName(get, never):String;
 
   public function get_dialogueBoxName():String
   {
     return _data.name ?? 'UNKNOWN';
   }
-
-  public final _data:DialogueBoxData;
 
   /**
    * Offset the speaker's sprite by this much when playing each animation.
@@ -66,11 +62,18 @@ class DialogueBox extends FlxSpriteGroup implements IDialogueScriptedClass imple
 
     this.x += xDiff;
     this.y += yDiff;
+
+    if (FullScreenScaleMode.wideScale.x != 1)
+    {
+      this.x *= fullscreenScale;
+      this.y = this.y * fullscreenScale + (-100 * fullscreenScale);
+    }
+
     return globalOffsets = value;
   }
 
   public var boxSprite:FlxSprite;
-  public var textDisplay:FlxTypeText;
+  public var textDisplay:FunkinTypeText;
 
   public var text(default, set):String;
 
@@ -91,6 +94,16 @@ class DialogueBox extends FlxSpriteGroup implements IDialogueScriptedClass imple
     this.speed = value;
     textDisplay.delay = this.speed * 0.05; // 1.0 x 0.05
     return this.speed;
+  }
+
+  /**
+   * A value used for scaling object's parameters on mobile.
+   */
+  public var fullscreenScale(get, never):Float;
+
+  public function get_fullscreenScale():Float
+  {
+    return FullScreenScaleMode.wideScale.x - 0.05;
   }
 
   public function new(id:String)
@@ -193,6 +206,12 @@ class DialogueBox extends FlxSpriteGroup implements IDialogueScriptedClass imple
   public function setScale(scale:Null<Float>):Void
   {
     if (scale == null) scale = 1.0;
+
+    if (FullScreenScaleMode.wideScale.x != 1)
+    {
+      scale *= fullscreenScale;
+    }
+
     this.boxSprite.scale.x = scale;
     this.boxSprite.scale.y = scale;
     this.boxSprite.updateHitbox();
@@ -247,8 +266,8 @@ class DialogueBox extends FlxSpriteGroup implements IDialogueScriptedClass imple
     var animNames:Array<String> = this.boxSprite?.animation?.getNameList() ?? [];
     trace('[DIALOGUE BOX] Successfully loaded ${animNames.length} animations for ${id}');
 
-    boxSprite.animation.callback = this.onAnimationFrame;
-    boxSprite.animation.finishCallback = this.onAnimationFinished;
+    boxSprite.animation.onFrameChange.add(this.onAnimationFrame);
+    boxSprite.animation.onFinish.add(this.onAnimationFinished);
   }
 
   /**
@@ -277,7 +296,7 @@ class DialogueBox extends FlxSpriteGroup implements IDialogueScriptedClass imple
 
   public function loadText():Void
   {
-    textDisplay = new FlxTypeText(0, 0, 300, '', 32);
+    textDisplay = new FunkinTypeText(0, 0, 300, '', 32);
     textDisplay.fieldWidth = _data.text.width;
     textDisplay.setFormat(_data.text.fontFamily, _data.text.size, FlxColor.fromString(_data.text.color), LEFT, SHADOW,
       FlxColor.fromString(_data.text.shadowColor ?? '#00000000'), false);
@@ -289,6 +308,13 @@ class DialogueBox extends FlxSpriteGroup implements IDialogueScriptedClass imple
 
     textDisplay.x += _data.text.offsets[0];
     textDisplay.y += _data.text.offsets[1];
+
+    if (FullScreenScaleMode.wideScale.x != 1)
+    {
+      textDisplay.fieldWidth *= fullscreenScale;
+      textDisplay.x *= fullscreenScale;
+      textDisplay.y *= fullscreenScale;
+    }
 
     add(textDisplay);
   }
@@ -419,14 +445,4 @@ class DialogueBox extends FlxSpriteGroup implements IDialogueScriptedClass imple
   }
 
   public function onScriptEvent(event:ScriptEvent):Void {}
-
-  public override function toString():String
-  {
-    return 'DialogueBox($id)';
-  }
-
-  public static function _fetchData(id:String):Null<DialogueBoxData>
-  {
-    return DialogueBoxRegistry.instance.parseEntryDataWithMigration(id, DialogueBoxRegistry.instance.fetchEntryVersion(id));
-  }
 }

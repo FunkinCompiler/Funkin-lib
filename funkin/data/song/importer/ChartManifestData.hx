@@ -8,7 +8,7 @@ class ChartManifestData
   /**
    * The current semantic version of the chart manifest data.
    */
-  public static var CHART_MANIFEST_DATA_VERSION:thx.semver.Version = "1.0.0";
+  public static final CHART_MANIFEST_DATA_VERSION:thx.semver.Version = "1.0.0";
 
   @:default(funkin.data.song.importer.ChartManifestData.CHART_MANIFEST_DATA_VERSION)
   @:jcustomparse(funkin.data.DataParse.semverVersion)

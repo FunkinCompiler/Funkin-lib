@@ -69,71 +69,84 @@ class Scoring
     }
   }
 
+  public static function getMissScore(scoringSystem:ScoringSystem = PBOT1):Int
+  {
+    return switch (scoringSystem)
+    {
+      case LEGACY: LEGACY_MISS_SCORE;
+      case WEEK7: WEEK7_MISS_SCORE;
+      case PBOT1: PBOT1_MISS_SCORE;
+      default:
+        FlxG.log.error('Unknown scoring system: ${scoringSystem}');
+        0;
+    }
+  }
+
   /**
    * The maximum score a note can receive.
    */
-  public static var PBOT1_MAX_SCORE:Int = 500;
+  public static final PBOT1_MAX_SCORE:Int = 500;
 
   /**
    * The offset of the sigmoid curve for the scoring function.
    */
-  public static var PBOT1_SCORING_OFFSET:Float = 54.99;
+  public static final PBOT1_SCORING_OFFSET:Float = 54.99;
 
   /**
    * The slope of the sigmoid curve for the scoring function.
    */
-  public static var PBOT1_SCORING_SLOPE:Float = 0.080;
+  public static final PBOT1_SCORING_SLOPE:Float = 0.080;
 
   /**
    * The minimum score a note can receive while still being considered a hit.
    */
-  public static var PBOT1_MIN_SCORE:Float = 9.0;
+  public static final PBOT1_MIN_SCORE:Float = 9.0;
 
   /**
    * The score a note receives when it is missed.
    */
-  public static var PBOT1_MISS_SCORE:Int = 0;
+  public static final PBOT1_MISS_SCORE:Int = -100;
 
   /**
    * The threshold at which a note hit is considered perfect and always given the max score.
    */
-  public static var PBOT1_PERFECT_THRESHOLD:Float = 5.0; // 5ms
+  public static final PBOT1_PERFECT_THRESHOLD:Float = 5.0; // 5ms
 
   /**
    * The threshold at which a note hit is considered missed.
    * `160ms`
    */
-  public static var PBOT1_MISS_THRESHOLD:Float = 160.0;
+  public static final PBOT1_MISS_THRESHOLD:Float = 160.0;
 
   /**
    * The time within which a note is considered to have been hit with the Killer judgement.
    * `~7.5% of the hit window, or 12.5ms`
    */
-  public static var PBOT1_KILLER_THRESHOLD:Float = 12.5;
+  public static final PBOT1_KILLER_THRESHOLD:Float = 12.5;
 
   /**
    * The time within which a note is considered to have been hit with the Sick judgement.
    * `~25% of the hit window, or 45ms`
    */
-  public static var PBOT1_SICK_THRESHOLD:Float = 45.0;
+  public static final PBOT1_SICK_THRESHOLD:Float = 45.0;
 
   /**
    * The time within which a note is considered to have been hit with the Good judgement.
    * `~55% of the hit window, or 90ms`
    */
-  public static var PBOT1_GOOD_THRESHOLD:Float = 90.0;
+  public static final PBOT1_GOOD_THRESHOLD:Float = 90.0;
 
   /**
    * The time within which a note is considered to have been hit with the Bad judgement.
    * `~85% of the hit window, or 135ms`
    */
-  public static var PBOT1_BAD_THRESHOLD:Float = 135.0;
+  public static final PBOT1_BAD_THRESHOLD:Float = 135.0;
 
   /**
    * The time within which a note is considered to have been hit with the Shit judgement.
    * `100% of the hit window, or 160ms`
    */
-  public static var PBOT1_SHIT_THRESHOLD:Float = 160.0;
+  public static final PBOT1_SHIT_THRESHOLD:Float = 160.0;
 
   public static function scoreNotePBOT1(msTiming:Float):Int
   {
@@ -182,51 +195,56 @@ class Scoring
    * The window of time in which a note is considered to be hit, on the Funkin Legacy scoring system.
    * Currently equal to 10 frames at 60fps, or ~166ms.
    */
-  public static var LEGACY_HIT_WINDOW:Float = (10 / 60) * 1000; // 166.67 ms hit window (10 frames at 60fps)
+  public static final LEGACY_HIT_WINDOW:Float = (10 / 60) * 1000; // 166.67 ms hit window (10 frames at 60fps)
 
   /**
    * The threshold at which a note is considered a "Sick" hit rather than another judgement.
    * Represented as a percentage of the total hit window.
    */
-  public static var LEGACY_SICK_THRESHOLD:Float = 0.2;
+  public static final LEGACY_SICK_THRESHOLD:Float = 0.2;
 
   /**
    * The threshold at which a note is considered a "Good" hit rather than another judgement.
    * Represented as a percentage of the total hit window.
    */
-  public static var LEGACY_GOOD_THRESHOLD:Float = 0.75;
+  public static final LEGACY_GOOD_THRESHOLD:Float = 0.75;
 
   /**
    * The threshold at which a note is considered a "Bad" hit rather than another judgement.
    * Represented as a percentage of the total hit window.
    */
-  public static var LEGACY_BAD_THRESHOLD:Float = 0.9;
+  public static final LEGACY_BAD_THRESHOLD:Float = 0.9;
 
   /**
    * The score a note receives when hit within the Shit threshold, rather than a miss.
    * Represented as a percentage of the total hit window.
    */
-  public static var LEGACY_SHIT_THRESHOLD:Float = 1.0;
+  public static final LEGACY_SHIT_THRESHOLD:Float = 1.0;
 
   /**
    * The score a note receives when hit within the Sick threshold.
    */
-  public static var LEGACY_SICK_SCORE:Int = 350;
+  public static final LEGACY_SICK_SCORE:Int = 350;
 
   /**
    * The score a note receives when hit within the Good threshold.
    */
-  public static var LEGACY_GOOD_SCORE:Int = 200;
+  public static final LEGACY_GOOD_SCORE:Int = 200;
 
   /**
    * The score a note receives when hit within the Bad threshold.
    */
-  public static var LEGACY_BAD_SCORE:Int = 100;
+  public static final LEGACY_BAD_SCORE:Int = 100;
 
   /**
    * The score a note receives when hit within the Shit threshold.
    */
-  public static var LEGACY_SHIT_SCORE:Int = 50;
+  public static final LEGACY_SHIT_SCORE:Int = 50;
+
+  /**
+   * The score a note receives when missed.
+   */
+  public static final LEGACY_MISS_SCORE:Int = -10;
 
   public static function scoreNoteLEGACY(msTiming:Float):Int
   {
@@ -271,15 +289,16 @@ class Scoring
    * The window of time in which a note is considered to be hit, on the Funkin Classic scoring system.
    * Same as L 10 frames at 60fps, or ~166ms.
    */
-  public static var WEEK7_HIT_WINDOW:Float = LEGACY_HIT_WINDOW;
+  public static final WEEK7_HIT_WINDOW:Float = LEGACY_HIT_WINDOW;
 
-  public static var WEEK7_BAD_THRESHOLD:Float = 0.8; // 80% of the hit window, or ~125ms
-  public static var WEEK7_GOOD_THRESHOLD:Float = 0.55; // 55% of the hit window, or ~91ms
-  public static var WEEK7_SICK_THRESHOLD:Float = 0.2; // 20% of the hit window, or ~33ms
-  public static var WEEK7_SHIT_SCORE:Int = 50;
-  public static var WEEK7_BAD_SCORE:Int = 100;
-  public static var WEEK7_GOOD_SCORE:Int = 200;
-  public static var WEEK7_SICK_SCORE:Int = 350;
+  public static final WEEK7_BAD_THRESHOLD:Float = 0.8; // 80% of the hit window, or ~125ms
+  public static final WEEK7_GOOD_THRESHOLD:Float = 0.55; // 55% of the hit window, or ~91ms
+  public static final WEEK7_SICK_THRESHOLD:Float = 0.2; // 20% of the hit window, or ~33ms
+  public static final WEEK7_MISS_SCORE:Int = -10;
+  public static final WEEK7_SHIT_SCORE:Int = 50;
+  public static final WEEK7_BAD_SCORE:Int = 100;
+  public static final WEEK7_GOOD_SCORE:Int = 200;
+  public static final WEEK7_SICK_SCORE:Int = 350;
 
   public static function scoreNoteWEEK7(msTiming:Float):Int
   {
@@ -363,10 +382,9 @@ class Scoring
 
     // Else, use the standard grades
 
-    // Grade % (only good and sick), 1.00 is a full combo
-    var grade = (scoreData.tallies.sick + scoreData.tallies.good) / scoreData.tallies.totalNotes;
-    // Clear % (including bad and shit). 1.00 is a full clear but not a full combo
-    var clear = (scoreData.tallies.totalNotesHit) / scoreData.tallies.totalNotes;
+    // Final Grade = (Sick + Good - Miss) / (Total Notes)
+
+    var grade = (scoreData.tallies.sick + scoreData.tallies.good - scoreData.tallies.missed) / scoreData.tallies.totalNotes;
 
     if (grade == Constants.RANK_PERFECT_THRESHOLD)
     {
@@ -438,6 +456,7 @@ enum abstract ScoringRank(String)
     return temp1 > temp2;
   }
 
+  // Greater than or equal to comparison
   @:op(A >= B) static function compareGTEQ(a:Null<ScoringRank>, b:Null<ScoringRank>):Bool
   {
     if (a != null && b == null) return true;
@@ -449,6 +468,7 @@ enum abstract ScoringRank(String)
     return temp1 >= temp2;
   }
 
+  // Less than comparison
   @:op(A < B) static function compareLT(a:Null<ScoringRank>, b:Null<ScoringRank>):Bool
   {
     if (a != null && b == null) return true;
@@ -460,6 +480,7 @@ enum abstract ScoringRank(String)
     return temp1 < temp2;
   }
 
+  // Less than or equal to comparison
   @:op(A <= B) static function compareLTEQ(a:Null<ScoringRank>, b:Null<ScoringRank>):Bool
   {
     if (a != null && b == null) return true;

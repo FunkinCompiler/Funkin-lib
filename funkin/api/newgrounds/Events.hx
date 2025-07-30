@@ -1,17 +1,20 @@
 package funkin.api.newgrounds;
 
+#if FEATURE_NEWGROUNDS_EVENTS
 import io.newgrounds.Call.CallOutcome;
 import io.newgrounds.NG;
 import io.newgrounds.objects.events.Outcome;
 import io.newgrounds.objects.events.Result;
+#end
 
 /**
  * Use Newgrounds to perform basic telemetry. Ignore if not logged in to Newgrounds.
  */
+@:nullSafety
 class Events
 {
   // Only allow letters, numbers, spaces, dashes, and underscores.
-  public static var EVENT_NAME_REGEX:EReg = ~/[^a-zA-Z0-9 -_]/g;
+  static final EVENT_NAME_REGEX:EReg = ~/[^a-zA-Z0-9 -_]/g;
 
   public static function logEvent(eventName:String):Void
   {
@@ -30,6 +33,7 @@ class Events
     #end
   }
 
+  #if FEATURE_NEWGROUNDS_EVENTS
   static function onEventLogged(eventName:String, outcome:CallOutcome<LogEventData>)
   {
     switch (outcome)
@@ -54,6 +58,7 @@ class Events
         }
     }
   }
+  #end
 
   public static inline function logStartGame():Void
   {

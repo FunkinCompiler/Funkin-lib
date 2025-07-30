@@ -81,39 +81,39 @@ class HealthIcon extends FunkinSprite
   /**
    * At this amount of health, play the Winning animation instead of the idle.
    */
-  public static var WINNING_THRESHOLD:Float = 0.8 * 2;
+  static final WINNING_THRESHOLD:Float = 0.8 * 2;
 
   /**
    * At this amount of health, play the Losing animation instead of the idle.
    */
-  public static var LOSING_THRESHOLD:Float = 0.2 * 2;
+  static final LOSING_THRESHOLD:Float = 0.2 * 2;
 
   /**
    * The maximum health of the player.
    */
-  public static var MAXIMUM_HEALTH:Float = 2;
+  static final MAXIMUM_HEALTH:Float = 2;
 
   /**
    * The size of a non-pixel icon when using the legacy format.
    * Remember, modern icons can be any size.
    */
-  public static var HEALTH_ICON_SIZE:Int = 150;
+  public static final HEALTH_ICON_SIZE:Int = 150;
 
   /**
    * The size of a pixel icon when using the legacy format.
    * Remember, modern icons can be any size.
    */
-  public static var PIXEL_ICON_SIZE:Int = 32;
+  static final PIXEL_ICON_SIZE:Int = 32;
 
   /**
    * The amount, in percent, to scale the icon by when bopping.
    */
-  public static var BOP_SCALE:Float = 0.2;
+  static final BOP_SCALE:Float = 0.2;
 
   /**
    * shitty hardcoded value for a specific positioning!!!
    */
-  public static var POSITION_OFFSET:Int = 26;
+  static final POSITION_OFFSET:Int = 26;
 
   public function new(char:Null<String>, playerId:Int = 0)
   {
@@ -210,7 +210,7 @@ class HealthIcon extends FunkinSprite
       lerpIconSize();
 
       // Lerp the health icon back to its normal angle.
-      this.angle = MathUtil.coolLerp(this.angle, 0, 0.15);
+      this.angle = MathUtil.smoothLerpPrecision(this.angle, 0, elapsed, 0.512);
     }
 
     this.updatePosition();
@@ -228,7 +228,7 @@ class HealthIcon extends FunkinSprite
     if (this.width > this.height)
     {
       // Apply linear interpolation while accounting for frame rate.
-      var targetSize:Int = Std.int(MathUtil.coolLerp(this.width, HEALTH_ICON_SIZE * this.size.x, 0.15));
+      var targetSize:Int = Std.int(MathUtil.smoothLerpPrecision(this.width, HEALTH_ICON_SIZE * this.size.x, FlxG.elapsed, 0.512));
 
       if (force) targetSize = Std.int(HEALTH_ICON_SIZE * this.size.x);
 
@@ -236,7 +236,7 @@ class HealthIcon extends FunkinSprite
     }
     else
     {
-      var targetSize:Int = Std.int(MathUtil.coolLerp(this.height, HEALTH_ICON_SIZE * this.size.y, 0.15));
+      var targetSize:Int = Std.int(MathUtil.smoothLerpPrecision(this.height, HEALTH_ICON_SIZE * this.size.y, FlxG.elapsed, 0.512));
 
       if (force) targetSize = Std.int(HEALTH_ICON_SIZE * this.size.y);
 

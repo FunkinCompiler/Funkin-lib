@@ -68,11 +68,12 @@ class SongMetadata implements ICloneable<SongMetadata>
   @:jignored
   public var variation:String;
 
-  public function new(songName:String, artist:String, ?variation:String)
+  public function new(songName:String, artist:String, ?charter:String, ?variation:String)
   {
     this.version = SongRegistry.SONG_METADATA_VERSION;
     this.songName = songName;
     this.artist = artist;
+    this.charter = (charter == null) ? null : charter;
     this.timeFormat = 'ms';
     this.divisions = null;
     this.offsets = new SongOffsets();
@@ -96,7 +97,7 @@ class SongMetadata implements ICloneable<SongMetadata>
    */
   public function clone():SongMetadata
   {
-    var result:SongMetadata = new SongMetadata(this.songName, this.artist, this.variation);
+    var result:SongMetadata = new SongMetadata(this.songName, this.artist, this.charter, this.variation);
     result.version = this.version;
     result.timeFormat = this.timeFormat;
     result.divisions = this.divisions;
@@ -139,7 +140,7 @@ class SongMetadata implements ICloneable<SongMetadata>
    */
   public function toString():String
   {
-    return 'SongMetadata(${this.songName} by ${this.artist}, variation ${this.variation})';
+    return 'SongMetadata(${this.songName} by ${this.artist}, charted by ${this.charter}, variation ${this.variation})';
   }
 }
 
@@ -152,12 +153,12 @@ enum abstract SongTimeFormat(String) from String to String
 
 class SongTimeChange implements ICloneable<SongTimeChange>
 {
-  public static var DEFAULT_SONGTIMECHANGE:SongTimeChange = new SongTimeChange(0, 100);
+  public static final DEFAULT_SONGTIMECHANGE:SongTimeChange = new SongTimeChange(0, 100);
 
-  public static var DEFAULT_SONGTIMECHANGES:Array<SongTimeChange> = [DEFAULT_SONGTIMECHANGE];
+  public static final DEFAULT_SONGTIMECHANGES:Array<SongTimeChange> = [DEFAULT_SONGTIMECHANGE];
 
-  public static var DEFAULT_BEAT_TUPLETS:Array<Int> = [4, 4, 4, 4];
-  public static var DEFAULT_BEAT_TIME:Null<Float> = null; // Later, null gets detected and recalculated.
+  static final DEFAULT_BEAT_TUPLETS:Array<Int> = [4, 4, 4, 4];
+  static final DEFAULT_BEAT_TIME:Null<Float> = null; // Later, null gets detected and recalculated.
 
   /**
    * Timestamp in specified `timeFormat`.
@@ -470,6 +471,13 @@ class SongPlayData implements ICloneable<SongPlayData>
    */
   @:optional
   public var album:Null<String>;
+
+  /**
+   * The sticker pack for the song to use during transitions.
+   * If `null`, display the character's sticker pack.
+   */
+  @:optional
+  public var stickerPack:Null<String>;
 
   /**
    * The start time for the audio preview in Freeplay.

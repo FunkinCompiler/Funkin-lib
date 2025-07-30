@@ -31,11 +31,11 @@ class ScrollSpeedEvent extends SongEvent
     super('ScrollSpeed');
   }
 
-  public static var DEFAULT_SCROLL:Float = 1;
-  public static var DEFAULT_DURATION:Float = 4.0;
-  public static var DEFAULT_EASE:String = 'linear';
-  public static var DEFAULT_ABSOLUTE:Bool = false;
-  public static var DEFAULT_STRUMLINE:String = 'both'; // my special little trick
+  static final DEFAULT_SCROLL:Float = 1;
+  static final DEFAULT_DURATION:Float = 4.0;
+  static final DEFAULT_EASE:String = 'linear';
+  static final DEFAULT_ABSOLUTE:Bool = false;
+  static final DEFAULT_STRUMLINE:String = 'both'; // my special little trick
 
   public override function handleEvent(data:SongEventData):Void
   {
@@ -149,9 +149,21 @@ class ScrollSpeedEvent extends SongEvent
           'Smooth Step In' => 'smoothStepIn',
           'Smooth Step Out' => 'smoothStepOut',
           'Smooth Step In/Out' => 'smoothStepInOut',
+          'Smoother Step In' => 'smootherStepIn',
+          'Smoother Step Out' => 'smootherStepOut',
+          'Smoother Step In/Out' => 'smootherStepInOut',
           'Elastic In' => 'elasticIn',
           'Elastic Out' => 'elasticOut',
-          'Elastic In/Out' => 'elasticInOut'
+          'Elastic In/Out' => 'elasticInOut',
+          'Back In' => 'backIn',
+          'Back Out' => 'backOut',
+          'Back In/Out' => 'backInOut',
+          'Bounce In' => 'bounceIn',
+          'Bounce Out' => 'bounceOut',
+          'Bounce In/Out' => 'bounceInOut',
+          'Circ In' => 'circIn',
+          'Circ Out' => 'circOut',
+          'Circ In/Out' => 'circInOut'
         ]
       },
       {

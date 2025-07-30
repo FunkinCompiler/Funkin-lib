@@ -16,8 +16,8 @@ class CharSelectGF extends FlxAtlasSprite implements IBPMSyncedScriptedClass
   public var fadingStatus:FadeStatus = OFF;
   public var fadeAnimIndex:Int = 0;
 
-  public var animInInfo:FramesJSFLInfo;
-  public var animOutInfo:FramesJSFLInfo;
+  public var animInInfo:Null<FramesJSFLInfo>;
+  public var animOutInfo:Null<FramesJSFLInfo>;
 
   public var intendedYPos:Float = 0;
   public var intendedAlpha:Float = 0;
@@ -54,20 +54,6 @@ class CharSelectGF extends FlxAtlasSprite implements IBPMSyncedScriptedClass
         doFade(animInInfo);
       default:
     }
-
-    #if FEATURE_DEBUG_FUNCTIONS
-    if (FlxG.keys.justPressed.J)
-    {
-      alpha = 1;
-      x = y = 0;
-      fadingStatus = FADE_OUT;
-    }
-    if (FlxG.keys.justPressed.K)
-    {
-      alpha = 0;
-      fadingStatus = FADE_IN;
-    }
-    #end
   }
 
   public function onStepHit(event:SongTimeScriptEvent):Void {}
@@ -105,9 +91,9 @@ class CharSelectGF extends FlxAtlasSprite implements IBPMSyncedScriptedClass
 
       for (i in 0...len)
       {
-        var animFrame:Int = Math.round(levels[i].value * 12);
+        var animFrame:Int = (FlxG.sound.volume == 0 || FlxG.sound.muted) ? 0 : Math.round(levels[i].value * 12);
 
-        #if desktop
+        #if sys
         // Web version scales with the Flixel volume level.
         // This line brings platform parity but looks worse.
         // animFrame = Math.round(animFrame * FlxG.sound.volume);
@@ -127,8 +113,13 @@ class CharSelectGF extends FlxAtlasSprite implements IBPMSyncedScriptedClass
    * @param animInfo Should not be confused with animInInfo!
    *                 This is merely a local var for the function!
    */
-  public function doFade(animInfo:FramesJSFLInfo):Void
+  public function doFade(animInfo:Null<FramesJSFLInfo>):Void
   {
+    if (animInfo == null)
+    {
+      return;
+    }
+
     fadeTimer += FlxG.elapsed;
     if (fadeTimer >= 1 / 24)
     {
@@ -195,6 +186,9 @@ class CharSelectGF extends FlxAtlasSprite implements IBPMSyncedScriptedClass
 
       animInInfo = FramesJSFLParser.parse(animInfoPath + '/In.txt');
       animOutInfo = FramesJSFLParser.parse(animInfoPath + '/Out.txt');
+
+      if (animInInfo == null) trace("[ERROR] Failed to load data for animInInfo, is the path provided correct?");
+      if (animOutInfo == null) trace("[ERROR] Failed to load data for animOutInfo, is the path provided correct?");
     }
 
     playAnimation("idle", true, false, false);

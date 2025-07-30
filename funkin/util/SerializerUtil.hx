@@ -14,9 +14,10 @@ typedef ScoreInput =
  * Functions dedicated to serializing and deserializing data.
  * NOTE: Use `json2object` wherever possible, it's way more efficient.
  */
+@:nullSafety
 class SerializerUtil
 {
-  public static var INDENT_CHAR = "\t";
+  static final INDENT_CHAR = "\t";
 
   /**
    * Convert a Haxe object to a JSON string.
@@ -48,7 +49,7 @@ class SerializerUtil
   /**
    * Convert a JSON byte array to a Haxe object.
    */
-  public static function fromJSONBytes(input:Bytes):Dynamic
+  public static function fromJSONBytes(input:Bytes):Null<Dynamic>
   {
     try
     {
