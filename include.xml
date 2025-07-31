@@ -11,13 +11,20 @@
 	<haxelib name="hscript" /> <!-- Scripting -->
 	<haxelib name="haxeui-core" /> <!-- UI framework -->
 	<haxelib name="haxeui-flixel" /> <!-- Integrate HaxeUI with Flixel -->
-	<haxelib name="flixel-text-input" /> <!-- Improved text field rendering for HaxeUI -->
 	<haxelib name="polymod" /> <!-- Modding framework -->
 	<haxelib name="flxanimate" /> <!-- Texture atlas rendering -->
 	<haxelib name="funkin.vis"/>
 	<haxelib name="grig.audio" />
 	<haxelib name="hxvlc" />
 	<haxelib name="newgrounds" />
+
+	<haxelib name="extension-admob" />
+	<haxelib name="extension-androidtools" />
+	<haxelib name="extension-haptics" />
+	<haxelib name="extension-admob" />
+	<haxelib name="extension-iapcore" />
+	<haxelib name="extension-iarcore" />
+
 
     <!-- This macro allows addition of new functionality to existing Flixel. -->
 	<haxeflag name="--macro" value="addMetadata('@:build(funkin.util.macro.FlxMacro.buildFlxBasic())', 'flixel.FlxBasic')" />

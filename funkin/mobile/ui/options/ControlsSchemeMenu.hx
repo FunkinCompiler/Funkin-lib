@@ -358,6 +358,6 @@ class ControlsSchemeMenu extends MusicBeatSubState
     {
       hitboxShowcases.x = MathUtil.smoothLerpPrecision(hitboxShowcases.x, (-1500 * currentIndex) + (-1500 / (availableSchemes.length + 1) * currentIndex), elapsed, 0.5);
     }
-  #end
   }
+  #end
 }

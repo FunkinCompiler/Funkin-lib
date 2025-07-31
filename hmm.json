@@ -4,8 +4,8 @@
       "name": "FlxPartialSound",
       "type": "git",
       "dir": null,
-      "ref": "3c9f63e3501c20c0b60442089dc05306f5a87968",
-      "url": "https://github.com/FunkinDroidTeam/FlxPartialSound.git"
+      "ref": "0ff6aff4931908f9acb7eb116a9ce9715c880920",
+      "url": "https://github.com/FunkinCrew/FlxPartialSound.git"
     },
     {
       "name": "astc-compressor",
@@ -30,6 +30,11 @@
       "name": "extension-haptics",
       "type": "haxelib",
       "version": "1.0.3"
+    },
+    {
+      "name": "tink_core",
+      "type": "haxelib",
+      "version": "1.26.0"
     },
     {
       "name": "extension-iapcore",
