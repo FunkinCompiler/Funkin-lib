@@ -5,13 +5,13 @@ import flixel.util.FlxColor;
 
 class WaveformSprite extends MeshRender
 {
-  static final DEFAULT_COLOR:FlxColor = FlxColor.WHITE;
-  static final DEFAULT_DURATION:Float = 5.0;
-  static final DEFAULT_ORIENTATION:WaveformOrientation = HORIZONTAL;
-  static final DEFAULT_X:Float = 0.0;
-  static final DEFAULT_Y:Float = 0.0;
-  static final DEFAULT_WIDTH:Float = 100.0;
-  static final DEFAULT_HEIGHT:Float = 100.0;
+  public static final DEFAULT_COLOR:FlxColor = FlxColor.WHITE;
+  public static final DEFAULT_DURATION:Float = 5.0;
+  public static final DEFAULT_ORIENTATION:WaveformOrientation = HORIZONTAL;
+  public static final DEFAULT_X:Float = 0.0;
+  public static final DEFAULT_Y:Float = 0.0;
+  public static final DEFAULT_WIDTH:Float = 100.0;
+  public static final DEFAULT_HEIGHT:Float = 100.0;
 
   /**
    * Set this to true to tell the waveform to rebuild itself.

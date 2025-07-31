@@ -111,7 +111,7 @@ class SongSequence
   /**
    * Signal dispatched by `Conductor.instance.update`.
    */
-  static final update:FlxSignal = new FlxSignal();
+  public static final update:FlxSignal = new FlxSignal();
 
   /**
    * Create a new sequence.

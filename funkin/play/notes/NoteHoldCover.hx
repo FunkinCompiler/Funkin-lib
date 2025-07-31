@@ -8,7 +8,7 @@ import funkin.play.notes.notestyle.NoteStyle;
 
 class NoteHoldCover extends FlxTypedSpriteGroup<FlxSprite>
 {
-  static final FRAMERATE_DEFAULT:Int = 24;
+  public static final FRAMERATE_DEFAULT:Int = 24;
 
   public var holdNote:SustainTrail;
 

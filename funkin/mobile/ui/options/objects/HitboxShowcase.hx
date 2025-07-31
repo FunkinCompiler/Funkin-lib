@@ -18,7 +18,7 @@ class HitboxShowcase extends FlxSpriteGroup
   /**
    * An array of values for lerping object's alpha.
    */
-  static final HITBOX_SHOWCASE_ALPHA:Array<Float> = [0.3, 1];
+  public static final HITBOX_SHOWCASE_ALPHA:Array<Float> = [0.3, 1];
 
   /**
    * Object's own index.

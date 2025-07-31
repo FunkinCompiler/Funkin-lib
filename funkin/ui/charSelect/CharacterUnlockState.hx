@@ -31,9 +31,9 @@ class CharacterUnlockState extends MusicBeatState
 
   public var nextState:FlxState;
 
-  static final DIALOG_BG_COLOR:FlxColor = 0xFF000000; // Iconic
-  static final DIALOG_COLOR:FlxColor = 0xFF4344F6; // Iconic
-  static final DIALOG_FONT_COLOR:FlxColor = 0xFFFFFFFF; // Iconic
+  public static final DIALOG_BG_COLOR:FlxColor = 0xFF000000; // Iconic
+  public static final DIALOG_COLOR:FlxColor = 0xFF4344F6; // Iconic
+  public static final DIALOG_FONT_COLOR:FlxColor = 0xFFFFFFFF; // Iconic
 
   public var busy:Bool = false;
 

@@ -8,7 +8,7 @@ using SongData.SongNoteData;
 @:nullSafety
 class SongNoteDataUtils
 {
-  static final CHUNK_INTERVAL_MS:Float = 2500;
+  public static final CHUNK_INTERVAL_MS:Float = 2500;
 
   /**
    * Retrieves all stacked notes. It does this by cycling through "chunks" of notes within a certain interval.

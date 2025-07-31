@@ -6,7 +6,7 @@ abstract SongEventSchema(SongEventSchemaRaw)
   /**
    * These units look better when placed immediately next to the value, rather than after a space.
    */
-  static final NO_SPACE_UNITS:Array<String> = ['x', '°', '%'];
+  public static final NO_SPACE_UNITS:Array<String> = ['x', '°', '%'];
 
   public function new(?fields:Array<SongEventSchemaField>)
   {

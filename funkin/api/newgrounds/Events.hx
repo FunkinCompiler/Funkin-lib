@@ -14,7 +14,7 @@ import io.newgrounds.objects.events.Result;
 class Events
 {
   // Only allow letters, numbers, spaces, dashes, and underscores.
-  static final EVENT_NAME_REGEX:EReg = ~/[^a-zA-Z0-9 -_]/g;
+  public static final EVENT_NAME_REGEX:EReg = ~/[^a-zA-Z0-9 -_]/g;
 
   public static function logEvent(eventName:String):Void
   {

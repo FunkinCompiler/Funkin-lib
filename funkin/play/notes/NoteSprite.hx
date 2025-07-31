@@ -8,7 +8,7 @@ import funkin.graphics.shaders.HSVShader;
 
 class NoteSprite extends FunkinSprite
 {
-  static final DIRECTION_COLORS:Array<String> = ['purple', 'blue', 'green', 'red'];
+  public static final DIRECTION_COLORS:Array<String> = ['purple', 'blue', 'green', 'red'];
 
   public var holdNoteSprite:SustainTrail;
 

@@ -307,7 +307,7 @@ class ScreenshotPlugin extends FlxBasic
     onPostScreenshot.dispatch(shot);
   }
 
-  static final CAMERA_FLASH_DURATION:Float = 0.25;
+  public static final CAMERA_FLASH_DURATION:Float = 0.25;
 
   /**
    * Visual and audio feedback when a screenshot is taken.
@@ -321,10 +321,10 @@ class ScreenshotPlugin extends FlxBasic
     FunkinSound.playOnce(Paths.sound('screenshot'), 1.0);
   }
 
-  static final PREVIEW_INITIAL_DELAY:Float = 0.25; // How long before the preview starts fading in.
-  static final PREVIEW_FADE_IN_DURATION:Float = 0.3; // How long the preview takes to fade in.
-  static final PREVIEW_FADE_OUT_DELAY:Float = 1.25; // How long the preview stays on screen.
-  static final PREVIEW_FADE_OUT_DURATION:Float = 0.3; // How long the preview takes to fade out.
+  public static final PREVIEW_INITIAL_DELAY:Float = 0.25; // How long before the preview starts fading in.
+  public static final PREVIEW_FADE_IN_DURATION:Float = 0.3; // How long the preview takes to fade in.
+  public static final PREVIEW_FADE_OUT_DELAY:Float = 1.25; // How long the preview stays on screen.
+  public static final PREVIEW_FADE_OUT_DURATION:Float = 0.3; // How long the preview takes to fade out.
 
   /**
    * Show a fancy preview for the screenshot

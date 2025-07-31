@@ -30,10 +30,10 @@ class CharacterDataParser
    */
   public static final CHARACTER_DATA_VERSION_RULE:String = '1.0.x';
 
-  static final characterCache:Map<String, CharacterData> = new Map<String, CharacterData>();
-  static final characterScriptedClass:Map<String, String> = new Map<String, String>();
+  public static final characterCache:Map<String, CharacterData> = new Map<String, CharacterData>();
+  public static final characterScriptedClass:Map<String, String> = new Map<String, String>();
 
-  static final DEFAULT_CHAR_ID:String = 'UNKNOWN';
+  public static final DEFAULT_CHAR_ID:String = 'UNKNOWN';
 
   /**
    * Parses and preloads the game's stage data and scripts when the game starts.

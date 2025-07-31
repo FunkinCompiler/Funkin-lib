@@ -96,7 +96,7 @@ class GameOverSubState extends MusicBeatSubState
 
   public var transparent:Bool;
 
-  static final CAMERA_ZOOM_DURATION:Float = 0.5;
+  public static final CAMERA_ZOOM_DURATION:Float = 0.5;
 
   public var targetCameraZoom:Float = 1.0;
 

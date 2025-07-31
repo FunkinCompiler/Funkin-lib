@@ -13,7 +13,7 @@ import funkin.modding.module.ScriptedModule;
 @:nullSafety
 class ModuleHandler
 {
-  static final moduleCache:Map<String, Module> = new Map<String, Module>();
+  public static final moduleCache:Map<String, Module> = new Map<String, Module>();
   public static var modulePriorityOrder:Array<String> = [];
 
   /**

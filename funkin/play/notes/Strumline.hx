@@ -45,11 +45,11 @@ class Strumline extends FlxSpriteGroup
   public static final NOTE_SPACING:Int = STRUMLINE_SIZE + 8;
 
   // Positional fixes for new strumline graphics.
-  static final INITIAL_OFFSET:Float = -0.275 * STRUMLINE_SIZE;
-  static final NUDGE:Float = 2.0;
+  public static final INITIAL_OFFSET:Float = -0.275 * STRUMLINE_SIZE;
+  public static final NUDGE:Float = 2.0;
 
-  static final KEY_COUNT:Int = 4;
-  static final NOTE_SPLASH_CAP:Int = 6;
+  public static final KEY_COUNT:Int = 4;
+  public static final NOTE_SPLASH_CAP:Int = 6;
 
   public var renderDistanceMs(get, never):Float;
 
@@ -181,7 +181,7 @@ class Strumline extends FlxSpriteGroup
 
   public var heldKeys:Array<Bool> = [];
 
-  static final BACKGROUND_PAD:Int = 16;
+  public static final BACKGROUND_PAD:Int = 16;
 
   public function new(noteStyle:NoteStyle, isPlayer:Bool)
   {

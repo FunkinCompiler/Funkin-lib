@@ -40,7 +40,7 @@ class StrumlineNote extends FunkinSprite
   /**
    * How long to continue the hold note animation after a note is pressed.
    */
-  static final CONFIRM_HOLD_TIME:Float = 0.1;
+  public static final CONFIRM_HOLD_TIME:Float = 0.1;
 
   /**
    * How long the hold note animation has been playing after a note is pressed.
@@ -188,7 +188,7 @@ class StrumlineNote extends FunkinSprite
     return this.animation.finished;
   }
 
-  static final DEFAULT_OFFSET:Int = 13;
+  public static final DEFAULT_OFFSET:Int = 13;
 
   /**
    * Adjusts the position of the sprite's graphic relative to the hitbox.

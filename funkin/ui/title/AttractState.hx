@@ -25,11 +25,11 @@ import flixel.addons.display.FlxPieDial;
 class AttractState extends MusicBeatState
 {
   #if html5
-  static final ATTRACT_VIDEO_PATH:String = Paths.stripLibrary(Paths.videos('toyCommercial'));
+  public static final ATTRACT_VIDEO_PATH:String = Paths.stripLibrary(Paths.videos('toyCommercial'));
   #end
 
   #if hxvlc
-  static final ATTRACT_VIDEO_PATH:String = Paths.videos('toyCommercial');
+  public static final ATTRACT_VIDEO_PATH:String = Paths.videos('toyCommercial');
   #end
 
   public var pie:FlxPieDial;

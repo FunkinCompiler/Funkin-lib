@@ -11,7 +11,7 @@ import sys.thread.Thread;
 @:nullSafety
 class DiscordClient
 {
-  static final CLIENT_ID:String = "816168432860790794";
+  public static final CLIENT_ID:String = "816168432860790794";
 
   public static var instance(get, never):DiscordClient;
   public static var _instance:Null<DiscordClient> = null;

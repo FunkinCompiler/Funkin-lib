@@ -48,10 +48,10 @@ class ZoomCameraSongEvent extends SongEvent
     super('ZoomCamera');
   }
 
-  static final DEFAULT_ZOOM:Float = 1.0;
-  static final DEFAULT_DURATION:Float = 4.0;
-  static final DEFAULT_MODE:String = 'direct';
-  static final DEFAULT_EASE:String = 'linear';
+  public static final DEFAULT_ZOOM:Float = 1.0;
+  public static final DEFAULT_DURATION:Float = 4.0;
+  public static final DEFAULT_MODE:String = 'direct';
+  public static final DEFAULT_EASE:String = 'linear';
 
   public override function handleEvent(data:SongEventData):Void
   {

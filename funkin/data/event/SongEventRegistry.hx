@@ -15,13 +15,13 @@ class SongEventRegistry
    * Every built-in event class must be added to this list.
    * Thankfully, with the power of `SongEventMacro`, this is done automatically.
    */
-  static final BUILTIN_EVENTS:List<Class<SongEvent>> = ClassMacro.listSubclassesOf(SongEvent);
+  public static final BUILTIN_EVENTS:List<Class<SongEvent>> = ClassMacro.listSubclassesOf(SongEvent);
 
   /**
    * Map of internal handlers for song events.
    * These may be either `ScriptedSongEvents` or built-in classes extending `SongEvent`.
    */
-  static final eventCache:Map<String, SongEvent> = new Map<String, SongEvent>();
+  public static final eventCache:Map<String, SongEvent> = new Map<String, SongEvent>();
 
   public static function loadEventCache():Void
   {

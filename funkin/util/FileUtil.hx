@@ -989,7 +989,7 @@ class FileUtil
   }
 
   public static var tempDir:Null<String> = null;
-  static final TEMP_ENV_VARS:Array<String> = ['TEMP', 'TMPDIR', 'TEMPDIR', 'TMP'];
+  public static final TEMP_ENV_VARS:Array<String> = ['TEMP', 'TMPDIR', 'TEMPDIR', 'TMP'];
 
   /**
    * Get the path to a temporary directory we can use for writing files.

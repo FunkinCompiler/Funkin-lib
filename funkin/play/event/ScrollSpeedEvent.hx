@@ -31,11 +31,11 @@ class ScrollSpeedEvent extends SongEvent
     super('ScrollSpeed');
   }
 
-  static final DEFAULT_SCROLL:Float = 1;
-  static final DEFAULT_DURATION:Float = 4.0;
-  static final DEFAULT_EASE:String = 'linear';
-  static final DEFAULT_ABSOLUTE:Bool = false;
-  static final DEFAULT_STRUMLINE:String = 'both'; // my special little trick
+  public static final DEFAULT_SCROLL:Float = 1;
+  public static final DEFAULT_DURATION:Float = 4.0;
+  public static final DEFAULT_EASE:String = 'linear';
+  public static final DEFAULT_ABSOLUTE:Bool = false;
+  public static final DEFAULT_STRUMLINE:String = 'both'; // my special little trick
 
   public override function handleEvent(data:SongEventData):Void
   {

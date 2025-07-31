@@ -184,7 +184,7 @@ class FNFLegacyImporter
     return result;
   }
 
-  static final STRUMLINE_SIZE = 4;
+  public static final STRUMLINE_SIZE = 4;
 
   public static function migrateNoteSections(input:Array<LegacyNoteSection>):Array<SongNoteData>
   {

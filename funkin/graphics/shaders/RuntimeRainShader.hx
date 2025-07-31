@@ -14,7 +14,7 @@ typedef Light =
 
 class RuntimeRainShader extends RuntimePostEffectShader
 {
-  static final MAX_LIGHTS:Int = 8;
+  public static final MAX_LIGHTS:Int = 8;
 
   public var lights:Array<
     {

@@ -29,7 +29,7 @@ class AdMobUtil
   /**
    * AdMob publisher ID used for the application.
    */
-  static final ADMOB_PUBLISHER:String = EnvironmentConfigMacro.environmentConfig.get("GLOBAL_ADMOB_PUBLISHER");
+  public static final ADMOB_PUBLISHER:String = EnvironmentConfigMacro.environmentConfig.get("GLOBAL_ADMOB_PUBLISHER");
 
   /**
    * Test ad unit IDs for development and testing purposes.
@@ -39,17 +39,17 @@ class AdMobUtil
   /**
    * Ad unit ID for displaying banner ads.
    */
-  static final BANNER_AD_UNIT_ID:String = #if mobile EnvironmentConfigMacro.environmentConfig.get(#if android "ANDROID_ADMOB_BANNER_ID" #else "IOS_ADMOB_BANNER_ID" #end) #else "" #end;
+  public static final BANNER_AD_UNIT_ID:String = #if mobile EnvironmentConfigMacro.environmentConfig.get(#if android "ANDROID_ADMOB_BANNER_ID" #else "IOS_ADMOB_BANNER_ID" #end) #else "" #end;
 
   /**
    * Ad unit ID for displaying interstitial ads.
    */
-  static final INTERSTITIAL_AD_UNIT_ID:String = #if mobile EnvironmentConfigMacro.environmentConfig.get(#if android "ANDROID_ADMOB_INTERSTITIAL_ID" #else "IOS_ADMOB_INTERSTITIAL_ID" #end) #else "" #end;
+  public static final INTERSTITIAL_AD_UNIT_ID:String = #if mobile EnvironmentConfigMacro.environmentConfig.get(#if android "ANDROID_ADMOB_INTERSTITIAL_ID" #else "IOS_ADMOB_INTERSTITIAL_ID" #end) #else "" #end;
 
   /**
    * Ad unit ID for displaying rewarded ads.
    */
-  static final REWARDED_AD_UNIT_ID:String = "";
+  public static final REWARDED_AD_UNIT_ID:String = "";
   #else
 
   /**
@@ -57,7 +57,7 @@ class AdMobUtil
    * This ID is a test publisher ID provided by Google AdMob.
    * Replace with your actual publisher ID for production.
    */
-  static final ADMOB_PUBLISHER:String = "ca-app-pub-3940256099942544";
+  public static final ADMOB_PUBLISHER:String = "ca-app-pub-3940256099942544";
 
   /**
    * Ad unit ID for displaying banner ads.
@@ -67,7 +67,7 @@ class AdMobUtil
    * - Android: "9214589741" (test ad unit ID)
    * - iOS: "2435281174" (test ad unit ID)
    */
-  static final BANNER_AD_UNIT_ID:String = #if android "9214589741" #elseif ios "2435281174" #else "" #end;
+  public static final BANNER_AD_UNIT_ID:String = #if android "9214589741" #elseif ios "2435281174" #else "" #end;
 
   /**
    * Ad unit ID for displaying interstitial ads.
@@ -77,7 +77,7 @@ class AdMobUtil
    * - Android: "1033173712" (test ad unit ID)
    * - iOS: "4411468910" (test ad unit ID)
    */
-  static final INTERSTITIAL_AD_UNIT_ID:String = #if android "1033173712" #elseif ios "4411468910" #else "" #end;
+  public static final INTERSTITIAL_AD_UNIT_ID:String = #if android "1033173712" #elseif ios "4411468910" #else "" #end;
 
   /**
    * Ad unit ID for displaying rewarded ads.
@@ -87,7 +87,7 @@ class AdMobUtil
    * - Android: "8691691433" (test ad unit ID)
    * - iOS: "5135589807" (test ad unit ID)
    */
-  static final REWARDED_AD_UNIT_ID:String = #if android "8691691433" #elseif ios "5135589807" #else "" #end;
+  public static final REWARDED_AD_UNIT_ID:String = #if android "8691691433" #elseif ios "5135589807" #else "" #end;
   #end
 
   /**

@@ -33,8 +33,8 @@ import funkin.api.discord.DiscordClient;
 
 class StoryMenuState extends MusicBeatState
 {
-  static final DEFAULT_BACKGROUND_COLOR:FlxColor = FlxColor.fromString('#F9CF51');
-  static final BACKGROUND_HEIGHT:Int = 400;
+  public static final DEFAULT_BACKGROUND_COLOR:FlxColor = FlxColor.fromString('#F9CF51');
+  public static final BACKGROUND_HEIGHT:Int = 400;
 
   public var currentDifficultyId:String = 'normal';
 

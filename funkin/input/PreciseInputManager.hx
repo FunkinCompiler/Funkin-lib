@@ -35,7 +35,7 @@ class PreciseInputManager extends FlxKeyManager<FlxKey, PreciseInputList>
     return instance ?? (instance = new PreciseInputManager());
   }
 
-  static final DIRECTIONS:Array<NoteDirection> = [NoteDirection.LEFT, NoteDirection.DOWN, NoteDirection.UP, NoteDirection.RIGHT];
+  public static final DIRECTIONS:Array<NoteDirection> = [NoteDirection.LEFT, NoteDirection.DOWN, NoteDirection.UP, NoteDirection.RIGHT];
 
   public var onInputPressed:FlxTypedSignal<PreciseInputEvent->Void>;
   public var onInputReleased:FlxTypedSignal<PreciseInputEvent->Void>;
@@ -136,7 +136,7 @@ class PreciseInputManager extends FlxKeyManager<FlxKey, PreciseInputList>
   /**
    * Convert from int to Int64.
    */
-  static final NS_PER_MS:Int64 = Constants.NS_PER_MS;
+  public static final NS_PER_MS:Int64 = Constants.NS_PER_MS;
 
   /**
    * Returns a precise timestamp, measured in nanoseconds.

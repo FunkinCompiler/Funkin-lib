@@ -17,7 +17,7 @@ typedef ScoreInput =
 @:nullSafety
 class SerializerUtil
 {
-  static final INDENT_CHAR = "\t";
+  public static final INDENT_CHAR = "\t";
 
   /**
    * Convert a Haxe object to a JSON string.

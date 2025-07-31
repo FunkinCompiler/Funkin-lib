@@ -679,7 +679,7 @@ class Song implements IPlayStateScriptedClass implements IRegistryEntry<SongMeta
     return meta;
   }
 
-  static final VARIATION_REGEX = ~/^[a-z][a-z0-9]+$/;
+  public static final VARIATION_REGEX = ~/^[a-z][a-z0-9]+$/;
 
   /**
    * Validate that the variation ID is valid.

@@ -45,7 +45,7 @@ typedef ArrowData =
 
 class OffsetMenu extends Page<OptionsState.OptionsMenuPageName>
 {
-  static final BPM:Int = 100;
+  public static final BPM:Int = 100;
 
   // Page<OptionsState.OptionsMenuPageName> stuff
   public var offsetItem:NumberPreferenceItem;

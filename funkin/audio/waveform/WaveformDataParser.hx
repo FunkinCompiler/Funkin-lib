@@ -3,11 +3,11 @@ package funkin.audio.waveform;
 @:nullSafety
 class WaveformDataParser
 {
-  static final INT16_MAX:Int = 32767;
-  static final INT16_MIN:Int = -32768;
+  public static final INT16_MAX:Int = 32767;
+  public static final INT16_MIN:Int = -32768;
 
-  static final INT8_MAX:Int = 127;
-  static final INT8_MIN:Int = -128;
+  public static final INT8_MAX:Int = 127;
+  public static final INT8_MIN:Int = -128;
 
   public static function interpretFlxSound(sound:Null<flixel.sound.FlxSound>):Null<WaveformData>
   {

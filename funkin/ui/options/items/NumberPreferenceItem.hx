@@ -20,8 +20,8 @@ class NumberPreferenceItem extends TextMenuItem
   public var lefthandText:AtlasText;
 
   // Constants
-  static final HOLD_DELAY:Float = 0.3; // seconds
-  static final CHANGE_RATE:Float = 0.08; // seconds
+  public static final HOLD_DELAY:Float = 0.3; // seconds
+  public static final CHANGE_RATE:Float = 0.08; // seconds
 
   // Constructor-initialized variables
   public var currentValue:Float;

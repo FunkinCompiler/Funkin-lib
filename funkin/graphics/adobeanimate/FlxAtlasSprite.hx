@@ -14,7 +14,7 @@ import flxanimate.animate.FlxKeyFrame;
 @:nullSafety
 class FlxAtlasSprite extends FlxAnimate
 {
-  static final SETTINGS:Settings =
+  public static final SETTINGS:Settings =
     {
       // ?ButtonSettings:Map<String, flxanimate.animate.FlxAnim.ButtonSettings>,
       FrameRate: 24.0,

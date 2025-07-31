@@ -3,7 +3,7 @@ package funkin.audio.waveform;
 @:nullSafety
 class WaveformData
 {
-  static final DEFAULT_VERSION:Int = 2;
+  public static final DEFAULT_VERSION:Int = 2;
 
   /**
    * The version of the waveform data format.

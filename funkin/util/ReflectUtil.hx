@@ -13,7 +13,7 @@ class ReflectUtil
   /**
    * A list of field names which cannot be retrieved with `getAnonymousField()`
    */
-  static final FIELD_NAME_BLACKLIST:Array<String> = ['_interp'];
+  public static final FIELD_NAME_BLACKLIST:Array<String> = ['_interp'];
 
   /**
    * This function is not allowed to be used by scripts.

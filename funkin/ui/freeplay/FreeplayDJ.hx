@@ -23,8 +23,8 @@ class FreeplayDJ extends FlxAtlasSprite
 
   public var seenIdleEasterEgg:Bool = false;
 
-  static final IDLE_EGG_PERIOD:Float = 60.0;
-  static final IDLE_CARTOON_PERIOD:Float = 120.0;
+  public static final IDLE_EGG_PERIOD:Float = 60.0;
+  public static final IDLE_CARTOON_PERIOD:Float = 120.0;
 
   // Time since last special idle animation you.
   public var timeIdling:Float = 0;

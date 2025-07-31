@@ -56,9 +56,9 @@ class ControlsMenu extends Page<OptionsState.OptionsMenuPageName>
 
   public var actionPrevented:Bool = false;
 
-  static final CONTROL_BASE_X = 50;
-  static final CONTROL_MARGIN_X = 700;
-  static final CONTROL_SPACING_X = 300;
+  public static final CONTROL_BASE_X = 50;
+  public static final CONTROL_MARGIN_X = 700;
+  public static final CONTROL_SPACING_X = 300;
 
   public function new()
   {

@@ -157,8 +157,8 @@ class SongTimeChange implements ICloneable<SongTimeChange>
 
   public static final DEFAULT_SONGTIMECHANGES:Array<SongTimeChange> = [DEFAULT_SONGTIMECHANGE];
 
-  static final DEFAULT_BEAT_TUPLETS:Array<Int> = [4, 4, 4, 4];
-  static final DEFAULT_BEAT_TIME:Null<Float> = null; // Later, null gets detected and recalculated.
+  public static final DEFAULT_BEAT_TUPLETS:Array<Int> = [4, 4, 4, 4];
+  public static final DEFAULT_BEAT_TIME:Null<Float> = null; // Later, null gets detected and recalculated.
 
   /**
    * Timestamp in specified `timeFormat`.

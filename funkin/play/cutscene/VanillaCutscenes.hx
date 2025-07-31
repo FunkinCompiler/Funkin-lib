@@ -16,7 +16,7 @@ class VanillaCutscenes
 {
   public static var blackScreen:FlxSprite;
 
-  static final TWEEN_DURATION:Float = 2.0;
+  public static final TWEEN_DURATION:Float = 2.0;
 
   /**
    * Plays the cutscene that appears at the start of Winter Horrorland.

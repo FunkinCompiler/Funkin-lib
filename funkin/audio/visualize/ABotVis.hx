@@ -19,7 +19,7 @@ class ABotVis extends FlxTypedSpriteGroup<FlxSprite>
 
   public var snd:Null<FlxSound> = null;
 
-  static final BAR_COUNT:Int = 7;
+  public static final BAR_COUNT:Int = 7;
 
   // TODO: Make the sprites easier to soft code.
   public function new(snd:FlxSound, pixel:Bool)

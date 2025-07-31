@@ -77,7 +77,7 @@ class FlxVideo extends FunkinSprite
   public var videoAvailable:Bool = false;
   public var frameTimer:Float = 0;
 
-  static final FRAME_RATE:Float = 60;
+  public static final FRAME_RATE:Float = 60;
 
   public override function update(elapsed:Float):Void
   {

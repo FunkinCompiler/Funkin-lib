@@ -28,7 +28,7 @@ import openfl.media.SoundMixer;
 @:nullSafety
 class FunkinSound extends FlxSound implements ICloneable<FunkinSound>
 {
-  static final MAX_VOLUME:Float = 1.0;
+  public static final MAX_VOLUME:Float = 1.0;
 
   /**
    * An FlxSignal which is dispatched when the volume changes.

@@ -24,7 +24,7 @@ class CreditsState extends MusicBeatState
   /**
    * The padding on each side of the screen.
    */
-  static final SCREEN_PAD = 24;
+  public static final SCREEN_PAD = 24;
 
   /**
    * The width of the screen the credits should maximally fill up.
@@ -38,39 +38,39 @@ class CreditsState extends MusicBeatState
    * Choose something that will render Unicode properly.
    */
   #if windows
-  static final CREDITS_FONT = 'Consolas';
+  public static final CREDITS_FONT = 'Consolas';
   #elseif mac
-  static final CREDITS_FONT = 'Menlo';
+  public static final CREDITS_FONT = 'Menlo';
   #else
-  static final CREDITS_FONT = "Courier New";
+  public static final CREDITS_FONT = "Courier New";
   #end
 
   /**
    * The size of the font.
    */
-  static final CREDITS_FONT_SIZE = 24;
+  public static final CREDITS_FONT_SIZE = 24;
 
-  static final CREDITS_HEADER_FONT_SIZE = 32;
+  public static final CREDITS_HEADER_FONT_SIZE = 32;
 
   /**
    * The color of the text itself.
    */
-  static final CREDITS_FONT_COLOR = FlxColor.WHITE;
+  public static final CREDITS_FONT_COLOR = FlxColor.WHITE;
 
   /**
    * The color of the text's outline.
    */
-  static final CREDITS_FONT_STROKE_COLOR = FlxColor.BLACK;
+  public static final CREDITS_FONT_STROKE_COLOR = FlxColor.BLACK;
 
   /**
    * The speed the credits scroll at, in pixels per second.
    */
-  static final CREDITS_SCROLL_BASE_SPEED = 100.0;
+  public static final CREDITS_SCROLL_BASE_SPEED = 100.0;
 
   /**
    * The speed the credits scroll at while the button is held, in pixels per second.
    */
-  static final CREDITS_SCROLL_FAST_SPEED = CREDITS_SCROLL_BASE_SPEED * 4.0;
+  public static final CREDITS_SCROLL_FAST_SPEED = CREDITS_SCROLL_BASE_SPEED * 4.0;
 
   /**
    * The actual sprites and text used to display the credits.

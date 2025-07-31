@@ -31,21 +31,21 @@ class FunkinPreloader extends FlxBasePreloader
    * The width at the base resolution.
    * Scaled up/down appropriately as needed.
    */
-  static final BASE_WIDTH:Float = 1280;
+  public static final BASE_WIDTH:Float = 1280;
 
   /**
    * Margin at the sides and bottom, around the loading bar.
    */
-  static final BAR_PADDING:Float = 20;
+  public static final BAR_PADDING:Float = 20;
 
-  static final BAR_HEIGHT:Int = 12;
+  public static final BAR_HEIGHT:Int = 12;
 
-  static final PIECES_COUNT:Int = 16;
+  public static final PIECES_COUNT:Int = 16;
 
   /**
    * Display takes this long (in seconds) to fade in.
    */
-  static final FADE_TIME:Float = 2.5;
+  public static final FADE_TIME:Float = 2.5;
 
   // Ratio between window size and BASE_WIDTH
   public var ratio:Float = 0;
@@ -836,7 +836,7 @@ class FunkinPreloader extends FlxBasePreloader
   #end
 
   public static final TOTAL_STEPS:Int = 11;
-  static final ELLIPSIS_TIME:Float = 0.5;
+  public static final ELLIPSIS_TIME:Float = 0.5;
 
   public function updateGraphics(percent:Float, elapsed:Float):Void
   {

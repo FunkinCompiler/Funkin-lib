@@ -81,17 +81,17 @@ class HealthIcon extends FunkinSprite
   /**
    * At this amount of health, play the Winning animation instead of the idle.
    */
-  static final WINNING_THRESHOLD:Float = 0.8 * 2;
+  public static final WINNING_THRESHOLD:Float = 0.8 * 2;
 
   /**
    * At this amount of health, play the Losing animation instead of the idle.
    */
-  static final LOSING_THRESHOLD:Float = 0.2 * 2;
+  public static final LOSING_THRESHOLD:Float = 0.2 * 2;
 
   /**
    * The maximum health of the player.
    */
-  static final MAXIMUM_HEALTH:Float = 2;
+  public static final MAXIMUM_HEALTH:Float = 2;
 
   /**
    * The size of a non-pixel icon when using the legacy format.
@@ -103,17 +103,17 @@ class HealthIcon extends FunkinSprite
    * The size of a pixel icon when using the legacy format.
    * Remember, modern icons can be any size.
    */
-  static final PIXEL_ICON_SIZE:Int = 32;
+  public static final PIXEL_ICON_SIZE:Int = 32;
 
   /**
    * The amount, in percent, to scale the icon by when bopping.
    */
-  static final BOP_SCALE:Float = 0.2;
+  public static final BOP_SCALE:Float = 0.2;
 
   /**
    * shitty hardcoded value for a specific positioning!!!
    */
-  static final POSITION_OFFSET:Int = 26;
+  public static final POSITION_OFFSET:Int = 26;
 
   public function new(char:Null<String>, playerId:Int = 0)
   {
