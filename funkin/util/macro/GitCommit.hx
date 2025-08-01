@@ -12,7 +12,7 @@ class GitCommit
     // `#if display` is used for code completion. In this case returning an
     // empty string is good enough; We don't want to call git on every hint.
     var commitHash:String = "";
-    return macro $v{commitHashSplice};
+    return macro $v{commitHash};
   }
 
   /**
