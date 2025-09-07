@@ -7,9 +7,14 @@ class HaxelibVersions
 {
   public static macro function getLibraryVersions():haxe.macro.Expr.ExprOf<Array<String>>
   {
+    #if !display
+    return macro $v{formatHmmData()};
+    #else
+    // `#if display` is used for code completion. In this case returning an
+    // empty string is good enough; We don't want to call functions on every hint.
     var commitHash:Array<String> = [];
     return macro $v{commitHash};
-
+    #end
   }
 
   #if (macro)
