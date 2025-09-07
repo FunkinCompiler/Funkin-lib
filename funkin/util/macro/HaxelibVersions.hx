@@ -7,14 +7,10 @@ class HaxelibVersions
 {
   public static macro function getLibraryVersions():haxe.macro.Expr.ExprOf<Array<String>>
   {
-    #if !display
-    return macro $v{formatHmmData()};
-    #else
     // `#if display` is used for code completion. In this case returning an
     // empty string is good enough; We don't want to call functions on every hint.
     var commitHash:Array<String> = [];
     return macro $v{commitHash};
-    #end
   }
 
   #if (macro)
@@ -47,11 +43,8 @@ class HaxelibVersions
 
   public static function readLibraryCurrentVersion(libraryName:String):String
   {
-    var path = Path.join([Path.addTrailingSlash(Sys.getCwd()), '.haxelib', libraryName, '.current']);
-    // This is compile time so we should always have Sys available.
-    var result = sys.io.File.getContent(path);
 
-    return result;
+    return "";
   }
   #end
 }

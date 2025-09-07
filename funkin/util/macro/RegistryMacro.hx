@@ -365,12 +365,6 @@ class RegistryMacro
   public static function listBaseGameEntryIds(dataFilePath:String):Array<Expr>
   {
     var result:Array<Expr> = [];
-    var files:Array<String> = sys.FileSystem.readDirectory(dataFilePath);
-
-    for (file in files)
-    {
-      result.push(macro $v{file.replace('.json', '')});
-    }
 
     return result;
   }
