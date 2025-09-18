@@ -142,8 +142,14 @@ class Strumline extends FlxSpriteGroup
 
   public var background:FunkinSprite;
 
+  /**
+   * The strumline notes (the receptors) themselves.
+   */
   public var strumlineNotes:FlxTypedSpriteGroup<StrumlineNote>;
   public var noteSplashes:FlxTypedSpriteGroup<NoteSplash>;
+  /**
+   * Hold note covers.
+   */
   public var noteHoldCovers:FlxTypedSpriteGroup<NoteHoldCover>;
 
   public var notesVwoosh:FlxTypedSpriteGroup<NoteSprite>;

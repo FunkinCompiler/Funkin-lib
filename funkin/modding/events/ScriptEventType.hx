@@ -13,6 +13,14 @@ enum abstract ScriptEventType(String) from String to String
   public var CREATE = 'CREATE';
 
   /**
+   * Called when the relevant object is fully created and ready to be used.
+   * This assumes all data is loaded and ready to go.
+   *
+   * This event is not cancelable.
+   */
+  public var STATE_CREATE = 'STATE_CREATE';
+
+  /**
    * Called when the relevant object is destroyed.
    * This should perform relevant cleanup to ensure good performance.
    *

@@ -51,7 +51,6 @@ class Module implements IPlayStateScriptedClass implements IStateChangingScripte
     return value;
   }
 
-
   /**
    * The state this module is associated with.
    * If set, this module will only receive events when the game is in this state.
@@ -235,4 +234,8 @@ class Module implements IPlayStateScriptedClass implements IStateChangingScripte
    * Called when the song has been restarted.
    */
   public function onSongRetry(event:SongRetryEvent) {}
+  /**
+   * Called when any state is created.
+   */
+  public function onStateCreate(event:ScriptEvent) {}
 }

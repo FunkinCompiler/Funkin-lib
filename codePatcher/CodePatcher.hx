@@ -75,6 +75,10 @@ class CodePatcher
   public static function main()
   {
     scanForFiles("../funkin");
+
+    // For haxe UI
+    File.saveContent("../funkin/Main.hx", File.getContent("fullRerplace/Main.hx"));
+    //File.saveContent("../haxe/ui/ComponentBuilder.hx", File.getContent("fullRerplace/ComponentBuilder.hx"));
   }
 
   private static function scanForFiles(path:String):Void
@@ -105,11 +109,16 @@ class CodePatcher
     var content = File.getContent(path);
     trace(path);
 
-    if (path == "../funkin/modding/module/ScriptedModule.hx")
-    {
-      // the only known exception
-      File.saveContent(path, File.getContent("scriptModule.txt"));
-      return;
+    switch  (path){
+      case "../funkin/modding/module/ScriptedModule.hx":
+        File.saveContent(path, File.getContent("fullRerplace/scriptModule.hx"));
+        return;
+      case "../funkin/util/macro/RegistryMacro.hx":
+        File.saveContent(path, File.getContent("fullRerplace/RegistryMacro.hx"));
+        return;
+      case "../funkin/util/macro/GitCommit.hx":
+        File.saveContent(path, File.getContent("fullRerplace/GitCommit.hx"));
+        return;
     }
 
     for (x in regex.keys())
