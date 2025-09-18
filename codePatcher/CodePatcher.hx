@@ -119,6 +119,9 @@ class CodePatcher
       case "../funkin/util/macro/GitCommit.hx":
         File.saveContent(path, File.getContent("fullRerplace/GitCommit.hx"));
         return;
+      case "../funkin/util/macro/HaxelibVersions.hx":
+        File.saveContent(path, File.getContent("fullRerplace/HaxelibVersions.hx"));
+        return;
     }
 
     for (x in regex.keys())
