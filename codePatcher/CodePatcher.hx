@@ -122,6 +122,9 @@ class CodePatcher
       case "../funkin/util/macro/HaxelibVersions.hx":
         File.saveContent(path, File.getContent("fullRerplace/HaxelibVersions.hx"));
         return;
+      case "../funkin/util/plugins/ReloadAssetsDebugPlugin.hx":
+        File.saveContent(path, File.getContent("fullRerplace/ReloadAssetsDebugPlugin.hx"));
+        return;
     }
 
     for (x in regex.keys())
